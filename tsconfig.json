@@ -1,0 +1,57 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "isolatedModules": false,
+        "jsx": "react",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "declaration": false,
+        "noImplicitAny": false,
+        "removeComments": true,
+        "noLib": false,
+        "preserveConstEnums": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "outDir": "out/",
+        "rootDir": "./"
+    },
+    "filesGlob": [
+        "**/*.ts",
+        "**/*.tsx",
+        "!node_modules/**",
+        "!bower_components/**",
+        "node_modules/gulp-typescript/node_modules/typescript/lib/lib.es6.d.ts",
+        "node_modules/gs-tools/declarations/gs-tools.d.ts",
+        "node_modules/gs-tools/src/**"
+    ],
+    "compileOnSave": true,
+    "buildOnSave": false,
+    "files": [
+        "declaration/angular-material/angular-material.d.ts",
+        "declaration/angular-ui-router/angular-ui-router.d.ts",
+        "declaration/angularjs/angular.d.ts",
+        "declaration/jasmine/jasmine.d.ts",
+        "declaration/jquery/jquery.d.ts",
+        "declaration/tsd.d.ts",
+        "src/app.ts",
+        "node_modules/gs-tools/declarations/gs-tools.d.ts",
+        "node_modules/gs-tools/src/collection/gulpfile.js",
+        "node_modules/gs-tools/src/collection/README.md",
+        "node_modules/gs-tools/src/collection/records_test.ts",
+        "node_modules/gs-tools/src/collection/records.ts",
+        "node_modules/gs-tools/src/dispose/base-disposable_test.ts",
+        "node_modules/gs-tools/src/dispose/base-disposable.ts",
+        "node_modules/gs-tools/src/dispose/disposable-function_test.ts",
+        "node_modules/gs-tools/src/dispose/disposable-function.ts",
+        "node_modules/gs-tools/src/dispose/gulpfile.js",
+        "node_modules/gs-tools/src/dispose/README.md",
+        "node_modules/gs-tools/src/dispose/testing/test-base.ts",
+        "node_modules/gs-tools/src/gulpfile.js",
+        "node_modules/gs-tools/src/jsons_test.ts",
+        "node_modules/gs-tools/src/jsons.ts"
+    ],
+    "atom": {
+        "rewriteTsconfig": true
+    }
+}

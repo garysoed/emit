@@ -15,5 +15,21 @@
   "bugs": {
     "url": "https://github.com/garysoed/emit/issues"
   },
-  "homepage": "https://github.com/garysoed/emit#readme"
+  "homepage": "https://github.com/garysoed/emit#readme",
+  "devDependencies": {
+    "gulp": "git://github.com/gulpjs/gulp.git#4.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-myth": "^1.1.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-tslint": "^4.3.2",
+    "gulp-typescript": "^2.11.0",
+    "gulp-webpack": "^1.5.0",
+    "karma": "^0.13.21",
+    "tslint": "^3.4.0",
+    "typescript": "^1.7.5",
+    "vinyl-named": "^1.1.0"
+  },
+  "dependencies": {
+    "gs-tools": "garysoed/gs-tools"
+  }
 }
