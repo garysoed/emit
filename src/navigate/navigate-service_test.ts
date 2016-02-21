@@ -15,12 +15,18 @@ describe('navigate.NavigateService', () => {
   describe('get currentView', () => {
     it('should return the correct view type', () => {
       let view = ViewType.ABOUT;
-      let path = `/${view}`;
+      let path = `/about`;
 
       mock$location.path.and.returnValue(path);
 
       expect(service.currentView).toEqual(view);
       expect(mock$location.path).toHaveBeenCalledWith();
+    });
+  });
+
+  describe('getPathForView', () => {
+    it('should return the correct path', () => {
+      expect(service.getPathForView(ViewType.ABOUT)).toEqual('about');
     });
   });
 
@@ -30,7 +36,7 @@ describe('navigate.NavigateService', () => {
 
       service.to(view);
 
-      expect(mock$location.path).toHaveBeenCalledWith(`${view}`);
+      expect(mock$location.path).toHaveBeenCalledWith(`about`);
     });
   });
 });

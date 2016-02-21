@@ -9,15 +9,23 @@ export class NavigateService {
     this.$location_ = $location;
   }
 
+  private getViewForPath_(path: string): ViewType {
+    return ViewType[path.toUpperCase()];
+  }
+
   get currentView(): ViewType {
     let path = this.$location_.path();
 
     // Trim off the /
-    return Number(path.substring(1));
+    return this.getViewForPath_(path.substring(1));
+  }
+
+  getPathForView(view: ViewType): string {
+    return ViewType[view].toLowerCase();
   }
 
   to(view: ViewType): void {
-    this.$location_.path(`${view}`);
+    this.$location_.path(`${this.getPathForView(view)}`);
   }
 }
 
