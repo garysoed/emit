@@ -11,7 +11,7 @@ var packTasks = require('./node_modules/gs-tools/gulp-tasks/pack')(
 
 var tasks = {};
 tasks.allTasks = function(gt, dir) {
-  var dir = 'src/' + dir;
+  var dir = 'web/' + dir;
   gt.task('_compile-test', packTasks.tests(gt, dir));
 
   gt.exec('compile-test', gt.series('_compile', '.:_compile-test'));
@@ -29,14 +29,14 @@ tasks.allTasks = function(gt, dir) {
       '.:_compile-test',
       karmaTasks.watch(gt, dir, [mockAngular])));
   gt.exec('watch-test', function() {
-    gt.watch(['src/**/*.ts'], gt.series('_compile', '.:compile-test'));
+    gt.watch(['web/**/*.ts'], gt.series('_compile', '.:compile-test'));
   });
 
   this.prodTasks(gt, dir);
 };
 
 tasks.prodTasks = function(gt, dir) {
-  var dir = 'src/' + dir;
+  var dir = 'web/' + dir;
   gt.exec('lint', typescriptTasks.lint(gt, dir));
 };
 

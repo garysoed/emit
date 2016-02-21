@@ -15,13 +15,13 @@ var tasks = require('./gulptasks');
 gn.exec('compile-test', gn.series(
     '_compile',
     gn.parallel(
-      'src/main:compile-test',
-      'src/navigate:compile-test'
+      'web/main:compile-test',
+      'web/navigate:compile-test'
     )));
 
 gn.exec('lint', gn.parallel(
-  'src:lint',
-  'src/main:lint'
+  'web:lint',
+  'web/main:lint'
 ));
 
 // TODO(gs): Refactor this.
@@ -36,21 +36,21 @@ gn.exec('compile', gn.series('_compile'));
 gn.exec('compile-ui', gn.series(
     gn.parallel(
         '_compile',
-        mythTasks.compile(gn, 'src/**'),
+        mythTasks.compile(gn, 'web/**'),
         function ng_() {
-          return gn.src(['src/**/*.ng'])
-              .pipe(gn.dest('out/src'));
+          return gn.src(['web/**/*.ng'])
+              .pipe(gn.dest('out/web'));
         }),
-    packTasks.app(gn, 'src/app.js', 'js.js')
+    packTasks.app(gn, 'web/app.js', 'js.js')
 ));
 
 
 gn.exec('watch', function() {
-  gn.watch(['src/**/*'], gn.series('.:compile-ui'));
+  gn.watch(['web/**/*'], gn.series('.:compile-ui'));
 });
 
 gn.exec('watch-test', function() {
-  gn.watch(['src/**/*.ts'], gn.series('.:compile-test'));
+  gn.watch(['web/**/*.ts'], gn.series('.:compile-test'));
 });
 
 gn.exec('default', gn.exec('compile-ui'));

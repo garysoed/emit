@@ -16,5 +16,5 @@ export default angular
     .component('emMain', {
       bindings: { },
       controller: MainCtrl,
-      templateUrl: 'src/main/main.ng',
+      templateUrl: 'web/main/main.ng',
     });

@@ -37,6 +37,6 @@ export default angular
         'view': '<',
       },
       controller: NavButtonCtrl,
-      templateUrl: 'src/main/nav-button.ng',
+      templateUrl: 'web/main/nav-button.ng',
       transclude: true,
     });
