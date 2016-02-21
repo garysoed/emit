@@ -1,0 +1,14 @@
+em-nav-button > .root {
+  position: relative;
+}
+
+em-nav-button > .root.selected {
+  background-color: var(--color-primary-dark);
+  color: #fff;
+}
+
+em-nav-button > .root > .content {
+  cursor: pointer;
+  line-height: 64px;
+  text-transform: uppercase;
+}

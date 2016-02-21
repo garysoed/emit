@@ -1,0 +1,16 @@
+<div layout="row" layout-align="center">
+  <div class="content">
+    <md-toolbar layout="row">
+      <em-nav-button flex view="$ctrl.views.ABOUT">
+        About
+      </em-nav-button>
+      <em-nav-button flex view="$ctrl.views.SCHEDULE">
+        Schedule
+      </em-nav-button>
+      <div flex>
+        Blog
+      </div>
+    </md-toolbar>
+    <div ng-view></div>
+  </div>
+</div>

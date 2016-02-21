@@ -10,17 +10,34 @@ var packTasks = require('./node_modules/gs-tools/gulp-tasks/pack')(
     require('gulp-webpack'));
 
 var tasks = {};
-tasks.allTests = function(gt, dir) {
+tasks.allTasks = function(gt, dir) {
   var dir = 'src/' + dir;
   gt.task('_compile-test', packTasks.tests(gt, dir));
 
   gt.exec('compile-test', gt.series('_compile', '.:_compile-test'));
-  gt.exec('lint', typescriptTasks.lint(gt, dir));
-  gt.exec('test', gt.series('_compile', '.:_compile-test', karmaTasks.once(gt, dir)));
-  gt.exec('karma', gt.series('_compile', '.:_compile-test', karmaTasks.watch(gt, dir)));
+
+  var mockAngular = {
+    pattern: 'mock-angular.js',
+    included: true
+  };
+  gt.exec('test', gt.series(
+      '_compile',
+      '.:_compile-test',
+      karmaTasks.once(gt, dir, [mockAngular])));
+  gt.exec('karma', gt.series(
+      '_compile',
+      '.:_compile-test',
+      karmaTasks.watch(gt, dir, [mockAngular])));
   gt.exec('watch-test', function() {
     gt.watch(['src/**/*.ts'], gt.series('_compile', '.:compile-test'));
-  })
+  });
+
+  this.prodTasks(gt, dir);
+};
+
+tasks.prodTasks = function(gt, dir) {
+  var dir = 'src/' + dir;
+  gt.exec('lint', typescriptTasks.lint(gt, dir));
 };
 
 gulp.task('_compile', typescriptTasks.compile(gulp));

@@ -15,23 +15,33 @@ var tasks = require('./gulptasks');
 gn.exec('compile-test', gn.series(
     '_compile',
     gn.parallel(
+      'src/main:compile-test',
+      'src/navigate:compile-test'
     )));
 
 gn.exec('lint', gn.parallel(
+  'src:lint',
+  'src/main:lint'
 ));
-gn.exec('test', gn.series('.:compile-test', karmaTasks.once(gn, '**')));
-gn.exec('karma', gn.series('.:compile-test', karmaTasks.watch(gn, '**')));
+
+// TODO(gs): Refactor this.
+var mockAngular = {
+  pattern: 'mock-angular.js',
+  included: true
+};
+gn.exec('test', gn.series('.:compile-test', karmaTasks.once(gn, '**', [mockAngular])));
+gn.exec('karma', gn.series('.:compile-test', karmaTasks.watch(gn, '**', [mockAngular])));
 gn.exec('compile', gn.series('_compile'));
 
 gn.exec('compile-ui', gn.series(
     gn.parallel(
         '_compile',
-        mythTasks.compile(gn, '**'),
+        mythTasks.compile(gn, 'src/**'),
         function ng_() {
           return gn.src(['src/**/*.ng'])
               .pipe(gn.dest('out/src'));
         }),
-    packTasks.app(gn, 'app.js')
+    packTasks.app(gn, 'src/app.js', 'js.js')
 ));
 
 

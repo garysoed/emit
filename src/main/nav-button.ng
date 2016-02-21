@@ -1,0 +1,7 @@
+<div
+    class="root"
+    md-ink-ripple
+    ng-class="{ selected: $ctrl.isCurrentView }"
+    ng-click="$ctrl.onClick()">
+  <div class="content" layout="row" layout-align="center center" ng-transclude></div>
+</div>
