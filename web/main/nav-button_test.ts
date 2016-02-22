@@ -1,3 +1,6 @@
+import TestBase from '../test-base';
+TestBase.config();
+
 import { NavButtonCtrl } from './nav-button';
 import ViewType from '../navigate/view-type';
 

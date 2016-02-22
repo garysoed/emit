@@ -1,3 +1,6 @@
+import TestBase from '../test-base';
+TestBase.config();
+
 import { NavigateService } from './navigate-service';
 import ViewType from './view-type';
 
@@ -21,12 +24,6 @@ describe('navigate.NavigateService', () => {
 
       expect(service.currentView).toEqual(view);
       expect(mock$location.path).toHaveBeenCalledWith();
-    });
-  });
-
-  describe('getPathForView', () => {
-    it('should return the correct path', () => {
-      expect(service.getPathForView(ViewType.ABOUT)).toEqual('about');
     });
   });
 

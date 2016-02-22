@@ -15,13 +15,16 @@ var tasks = require('./gulptasks');
 gn.exec('compile-test', gn.series(
     '_compile',
     gn.parallel(
+      'web/about:compile-test',
       'web/main:compile-test',
       'web/navigate:compile-test'
     )));
 
 gn.exec('lint', gn.parallel(
   'web:lint',
-  'web/main:lint'
+  'web/about:lint',
+  'web/main:lint',
+  'web/navigate:lint'
 ));
 
 // TODO(gs): Refactor this.

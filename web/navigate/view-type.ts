@@ -1,4 +1,4 @@
-enum ViewType {
+export enum ViewType {
   ABOUT,
   SCHEDULE,
 };
