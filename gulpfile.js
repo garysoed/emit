@@ -48,12 +48,16 @@ gn.exec('compile-ui', gn.series(
 ));
 
 
-gn.exec('watch', function() {
-  gn.watch(['web/**/*'], gn.series('.:compile-ui'));
-});
+gn.exec('watch', gn.series(
+    '.:compile-ui',
+    function() {
+      gn.watch(['web/**/*'], gn.series('.:compile-ui'));
+    }));
 
-gn.exec('watch-test', function() {
-  gn.watch(['web/**/*.ts'], gn.series('.:compile-test'));
-});
+gn.exec('watch-test', gn.series(
+    '.:compile-test',
+    function() {
+      gn.watch(['web/**/*.ts'], gn.series('.:compile-test'));
+    }));
 
 gn.exec('default', gn.exec('compile-ui'));

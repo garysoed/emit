@@ -1,7 +1,7 @@
 import TestBase from '../test-base';
 TestBase.config();
 
-import DisposableTestSetup from '../../node_modules/gs-tools/src/testing/disposable-test-setup';
+import TestDispose from '../../node_modules/gs-tools/src/testing/test-dispose';
 import { MainCtrl } from './main';
 import Mocks from '../../node_modules/gs-tools/src/mock/mocks';
 import { State as OverflowWatcherState } from '../../node_modules/gs-tools/src/ui/overflow-watcher';
@@ -21,7 +21,7 @@ describe('main.MainCtrl', () => {
       'md-content': document.createElement('div'),
     });
     ctrl = new MainCtrl(<any> [mock$element]);
-    DisposableTestSetup.add(ctrl);
+    TestDispose.add(ctrl);
   });
 
   describe('onWatcherChanged_', () => {
