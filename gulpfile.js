@@ -47,6 +47,13 @@ gn.exec('compile-ui', gn.series(
     packTasks.app(gn, 'web/app.js', 'js.js')
 ));
 
+gn.exec('deploy', gn.series(
+    'compile-ui',
+    function copyNg_() {
+      return gn.src(['out/**/*.ng', 'out/js.js', 'out/css.css', 'index.html'], { base: '.' })
+          .pipe(gn.dest('server/src/main/webapp'));
+    }));
+
 
 gn.exec('watch', gn.series(
     '.:compile-ui',

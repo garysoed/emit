@@ -48,6 +48,7 @@
         "web/test-base.ts",
         "node_modules/typescript/lib/lib.es6.d.ts",
         "node_modules/gs-tools/declarations/gs-tools.d.ts",
+        "node_modules/gs-tools/src/async/asyncs.ts",
         "node_modules/gs-tools/src/collection/gulpfile.js",
         "node_modules/gs-tools/src/collection/README.md",
         "node_modules/gs-tools/src/collection/records_test.ts",
