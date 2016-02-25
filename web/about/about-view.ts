@@ -1,5 +1,4 @@
 import Enums from '../../node_modules/gs-tools/src/typescript/enums';
-import { NavigateService } from '../navigate/navigate-service';
 import ViewType from '../navigate/view-type';
 
 export class AboutViewCtrl {

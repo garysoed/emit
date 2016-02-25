@@ -40,6 +40,10 @@ gn.exec('compile-ui', gn.series(
     gn.parallel(
         '_compile',
         mythTasks.compile(gn, 'web/**'),
+        function images_() {
+          return gn.src(['images/**'])
+              .pipe(gn.dest('out/images'));
+        },
         function ng_() {
           return gn.src(['web/**/*.ng'])
               .pipe(gn.dest('out/web'));
@@ -50,7 +54,15 @@ gn.exec('compile-ui', gn.series(
 gn.exec('deploy', gn.series(
     'compile-ui',
     function copyNg_() {
-      return gn.src(['out/**/*.ng', 'out/js.js', 'out/css.css', 'index.html'], { base: '.' })
+      return gn.src(
+          [
+            'out/**/*.ng',
+            'out/js.js',
+            'out/css.css',
+            'out/images/**',
+            'index.html'
+          ], 
+          { base: '.' })
           .pipe(gn.dest('server/src/main/webapp'));
     }));
 

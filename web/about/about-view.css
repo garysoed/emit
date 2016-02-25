@@ -1,0 +1,5 @@
+.about-view > section > img {
+  float: left;
+  height: 200px;
+  margin-right: 1rem;
+}
