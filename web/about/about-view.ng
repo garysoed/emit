@@ -1,6 +1,5 @@
 <div class="about-view">
   <!-- TODO(gs): Use markdown renderer -->
-  <h1 class="md-heading">About emanation</h1>
   <section class="md-body-1">
     <img src="images/photo.jpg"/>
     <p>

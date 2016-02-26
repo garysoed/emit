@@ -1,16 +1,32 @@
+em-main > md-content > .sticky > md-toolbar > .toolbar-root,
+em-main > md-content > .view-root {
+  width: 80rem;
+}
+
+em-main > md-content > .sticky,
+em-main > md-content > .title-container {
+  width: 100%;
+}
+
+em-main > md-content > .title-container {
+  margin-left: 4rem;
+}
+
+/*em-main > md-content > *,
+em-main > md-content > .sticky > md-toolbar {
+  width: 80rem;
+}*/
+
 em-main > md-content {
   height: 100vh;
 }
 
-em-main > md-content > *,
-em-main > md-content > .content > .sticky > md-toolbar {
-  width: 80rem;
-}
-
-em-main > md-content > .content > .sticky {
+em-main > md-content > .sticky {
   height: 64px;
+  min-height: 64px;
 }
 
-em-main > md-content > .content > .sticky > .stick {
+em-main > md-content > .sticky > .stick {
   position: fixed;
+  top: 0;
 }

@@ -1,18 +1,23 @@
-<md-content layout="row" layout-align="center">
-  <div class="content">
-    <div class="sticky">
-      <md-toolbar layout="row">
+<md-content layout="column" layout-align="start center">
+  <div class="title-container">
+    <h1 class="md-display-2">Emanation</h1>
+  </div>
+  <div class="sticky">
+    <md-toolbar layout="row" layout-align="center">
+      <div class="toolbar-root" layout="row">
         <em-nav-button flex view="$ctrl.views.ABOUT">
           About
         </em-nav-button>
-        <em-nav-button flex view="$ctrl.views.SCHEDULE">
+        <!-- <em-nav-button flex view="$ctrl.views.SCHEDULE">
           Schedule
-        </em-nav-button>
+        </em-nav-button> -->
         <div flex>
           Blog
         </div>
-      </md-toolbar>
-    </div>
-    <div ng-view></div>
+      </div>
+    </md-toolbar>
+  </div>
+  <div class="view-root">
+    <div ng-view flex></div>
   </div>
 </md-content>
