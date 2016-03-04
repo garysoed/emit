@@ -4,3 +4,10 @@
   margin-right: 1rem;
   top: 0;
 }
+
+.about-view blockquote {
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+  font-size: 2rem;
+}
