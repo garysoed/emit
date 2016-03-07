@@ -89,7 +89,7 @@
         <p>
           Choose the number of sessions you desire: (each session lasts around 1 hour)
         </p>
-        <ol>
+        <ol class="alphabet">
           <li>3 sessions at $120</li>
           <li>4 sessions at $150</li>
           <li>5 sessions at $175</li>

@@ -9,11 +9,16 @@ angular
       AboutViewModule.name,
       MainModule.name,
     ])
-    .config(($mdThemingProvider: angular.material.IThemingProvider) => {
+    .config((
+        $mdThemingProvider: angular.material.IThemingProvider,
+        $routeProvider: angular.ui.IUrlRouterProvider) => {
       $mdThemingProvider
           .theme('default')
           .primaryPalette('light-blue')
           .accentPalette('lime');
+      $routeProvider.otherwise({
+        redirectTo: '/about'
+      });
     });
 
 angular.bootstrap(document.body, ['em.App'], {strictDi: false});
