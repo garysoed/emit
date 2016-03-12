@@ -13,7 +13,11 @@ em-main > md-content > .title-container {
 }
 
 em-main > md-content > .title-container {
-  margin-left: 4rem;
+  margin: 2rem 0 2rem 4rem;
+}
+
+em-main > md-content > .title-container > img {
+  height: 10rem;
 }
 
 /*em-main > md-content > *,
@@ -33,4 +37,25 @@ em-main > md-content > .sticky {
 em-main > md-content > .sticky > .stick {
   position: fixed;
   top: 0;
+}
+
+em-main > md-content > .sticky .logo {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  height: 64px;
+  margin-left: 1rem;
+  overflow: hidden;
+
+  width: 0;
+  transition: width .2s;
+}
+
+em-main > md-content > .sticky > .stick .logo {
+  width: 200px;
+  transition: width .2s;
+}
+
+em-main .logo img {
+  height: 48px;
 }

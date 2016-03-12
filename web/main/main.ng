@@ -1,9 +1,13 @@
 <md-content layout="column" layout-align="start center">
   <div class="title-container">
-    <h1 class="md-display-2">Emanation</h1>
+    <img src="images/logo_color.png" />
   </div>
   <div class="sticky">
     <md-toolbar layout="row" layout-align="center">
+      <div class="logo">
+        <img src="images/logo_mini.png" hide-xs hide-sm hide-md />
+        <img src="images/icon_mini.png" hide-gt-md />
+      </div>
       <div class="toolbar-root" layout="row">
         <em-nav-button flex view="$ctrl.views.ABOUT">
           About

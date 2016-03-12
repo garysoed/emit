@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="188.03947mm"
+   height="47.832798mm"
+   viewBox="0 0 666.2816 169.48629"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="logo.svg"
+   inkscape:export-filename="/Users/gsoed/proj/emit/images/logo_mini.png"
+   inkscape:export-xdpi="25.529745"
+   inkscape:export-ydpi="25.529745">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.61955855"
+     inkscape:cx="308.04645"
+     inkscape:cy="-72.964483"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer6"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1440"
+     inkscape:window-height="851"
+     inkscape:window-x="0"
+     inkscape:window-y="1"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="mini">
+    <g
+       inkscape:groupmode="layer"
+       id="layer4"
+       inkscape:label="background"
+       sodipodi:insensitive="true"
+       style="display:none">
+      <rect
+         style="opacity:1;fill:#03a9f4;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:17;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect4813"
+         width="828.00891"
+         height="463.23306"
+         x="-83.930725"
+         y="-98.446419" />
+    </g>
+    <g
+       inkscape:groupmode="layer"
+       id="layer5"
+       inkscape:label="main"
+       style="display:none">
+      <flowRoot
+         transform="matrix(2.5283875,0,0,2.5283875,1108.2803,552.93304)"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         id="flowRoot4795"
+         xml:space="preserve"><flowRegion
+           id="flowRegion4797"><rect
+             style="fill:#000000;fill-opacity:1"
+             y="-212.34879"
+             x="-383.85797"
+             height="379.81735"
+             width="1486.9446"
+             id="rect4799" /></flowRegion><flowPara
+           id="flowPara4801">manations</flowPara></flowRoot>    </g>
+    <g
+       inkscape:groupmode="layer"
+       id="layer6"
+       inkscape:label="icon">
+      <path
+         inkscape:export-ydpi="25.488787"
+         inkscape:export-xdpi="25.488787"
+         inkscape:export-filename="/Users/gsoed/proj/emit/images/icon_mini.png"
+         transform="matrix(-0.2942416,0.11398414,0.11398414,0.2942416,17.049589,19.598503)"
+         d="m -142.33169,212.38158 c 0.25472,0.21026 -0.071,0.60957 -0.25351,0.72398 -0.99928,0.6263 -2.1338,-0.46386 -2.46573,-1.33667 -1.04627,-2.75117 1.64292,-5.27413 4.09003,-5.87227 5.85667,-1.43152 10.68623,4.087 11.52609,9.39086 1.69852,10.72633 -8.29793,19.05224 -18.15454,20.02739 -17.78497,1.75953 -31.07447,-14.79536 -31.99114,-31.3261 -1.52317,-27.4682 24.11337,-47.47178 49.87486,-48.04507 40.220503,-0.89506 68.977285,36.79828 68.828199,74.79096 -0.221686,56.49409 -53.406999,96.33662 -107.082749,94.98961 -76.74804,-1.92602 -130.30663,-74.50585 -127.1875,-147.77483 C -290.82897,76.501813 -194.47815,6.2950836 -97.241249,11.860995 33.822584,19.363185 123.91496,144.34147 115.12546,270.39122 103.54513,436.46413 -55.402637,549.98844 -215.58573,537.09494 -257.45921,533.72445 -298.58054,522.402 -336.4359,504.22496"
+         sodipodi:t0="0.070804618"
+         sodipodi:argument="-20.211786"
+         sodipodi:radius="350.46674"
+         sodipodi:revolution="3.5601788"
+         sodipodi:expansion="3.1300001"
+         sodipodi:cy="212.3622"
+         sodipodi:cx="-142.41771"
+         id="path4803"
+         style="fill:none;fill-rule:nonzero;stroke:#000000;stroke-width:41.2913208;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         sodipodi:type="spiral" />
+      <circle
+         inkscape:export-ydpi="25.488787"
+         inkscape:export-xdpi="25.488787"
+         inkscape:export-filename="/Users/gsoed/proj/emit/images/icon_mini.png"
+         r="2.0639887"
+         cy="119.39822"
+         cx="99.017746"
+         id="circle4805"
+         style="opacity:1;fill:#03a9f4;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:17;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         transform="translate(-14.433012,-52.685728)" />
+    </g>
+  </g>
+  <g
+     inkscape:label="text"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-14.433012,-52.685728)"
+     style="display:none">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4138"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#0288d1;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(2.5283875,0,0,2.5283875,1122.7133,605.61877)"><flowRegion
+         id="flowRegion4140"><rect
+           id="rect4142"
+           width="1486.9446"
+           height="379.81735"
+           x="-383.85797"
+           y="-212.34879"
+           style="fill:#0288d1;fill-opacity:1" /></flowRegion><flowPara
+         id="flowPara4144">manations</flowPara></flowRoot>  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="icon"
+     style="display:none">
+    <path
+       sodipodi:type="spiral"
+       style="fill:none;fill-rule:nonzero;stroke:#0288d1;stroke-width:41.2913208;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path4136"
+       sodipodi:cx="-142.41771"
+       sodipodi:cy="212.3622"
+       sodipodi:expansion="3.1300001"
+       sodipodi:revolution="3.5601788"
+       sodipodi:radius="350.46674"
+       sodipodi:argument="-20.211786"
+       sodipodi:t0="0.070804618"
+       d="m -142.33169,212.38158 c 0.25472,0.21026 -0.071,0.60957 -0.25351,0.72398 -0.99928,0.6263 -2.1338,-0.46386 -2.46573,-1.33667 -1.04627,-2.75117 1.64292,-5.27413 4.09003,-5.87227 5.85667,-1.43152 10.68623,4.087 11.52609,9.39086 1.69852,10.72633 -8.29793,19.05224 -18.15454,20.02739 -17.78497,1.75953 -31.07447,-14.79536 -31.99114,-31.3261 -1.52317,-27.4682 24.11337,-47.47178 49.87486,-48.04507 40.220503,-0.89506 68.977285,36.79828 68.828199,74.79096 -0.221686,56.49409 -53.406999,96.33662 -107.082749,94.98961 -76.74804,-1.92602 -130.30663,-74.50585 -127.1875,-147.77483 C -290.82897,76.501813 -194.47815,6.2950836 -97.241249,11.860995 33.822584,19.363185 123.91496,144.34147 115.12546,270.39122 103.54513,436.46413 -55.402637,549.98844 -215.58573,537.09494 -257.45921,533.72445 -298.58054,522.402 -336.4359,504.22496"
+       transform="matrix(-0.2942416,0.11398414,0.11398414,0.2942416,17.049589,19.598503)"
+       inkscape:export-filename="/Users/gsoed/proj/emit/images/favicon.png"
+       inkscape:export-xdpi="31.860983"
+       inkscape:export-ydpi="31.860983" />
+    <circle
+       transform="translate(-14.433012,-52.685728)"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:17;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path4147"
+       cx="99.017746"
+       cy="119.39822"
+       r="2.0639887"
+       inkscape:export-filename="/Users/gsoed/proj/emit/images/favicon.png"
+       inkscape:export-xdpi="31.860983"
+       inkscape:export-ydpi="31.860983" />
+  </g>
+</svg>
