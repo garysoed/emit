@@ -29,11 +29,11 @@
 }
 
 .about-view blockquote::before {
-  content: "“"
+  content: "\0201c"
 }
 
 .about-view blockquote::after {
-  content: "”"
+  content: "\0201d"
 }
 
 .about-view ol.alphabet {

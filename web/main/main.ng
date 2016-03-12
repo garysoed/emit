@@ -6,7 +6,7 @@
     <md-toolbar layout="row" layout-align="center">
       <div class="logo">
         <img src="images/logo_mini.png" hide-xs hide-sm hide-md />
-        <img src="images/icon_mini.png" hide-gt-md />
+        <img src="images/icon_mini.png" hide-xs hide-sm hide-gt-md/>
       </div>
       <div class="toolbar-root" layout="row">
         <em-nav-button flex view="$ctrl.views.ABOUT">
