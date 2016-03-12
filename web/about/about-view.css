@@ -1,8 +1,24 @@
-.about-view > section > img {
-  float: left;
+.about-view img {
   height: 200px;
+}
+
+.about-view .float-left {
+  float: left;
   margin-right: 1rem;
-  top: 0;
+}
+
+.about-view .float-right {
+  float: right;
+  margin-left: 1rem;
+}
+
+.about-view div.image-pair {
+  margin-right: 3rem;
+}
+
+.about-view img.rumi {
+  margin-top: 2rem;
+  height: 205px;
 }
 
 .about-view blockquote {

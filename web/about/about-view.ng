@@ -1,7 +1,7 @@
 <div class="about-view">
   <!-- TODO(gs): Use markdown renderer -->
   <section class="md-body-1">
-    <img src="images/photo.jpg"/>
+    <img src="images/photo.jpg" class="float-left" />
     <p>
       Hello, I am Joshua, welcome to my site. My goal is to help you find your way <i>IN</i> life.
       As Socrates once said:
@@ -34,6 +34,7 @@
         <h3 class="md-heading">
           Astrological Natal Chart, $50 for 1 hour:
         </h3>
+        <img src="images/natal_chart.jpg" class="float-right" />
         <p>
           Natal Chart readings are a very good place to start on your path of Self Understanding.
           Following the reading, you will walk away with better clarity about your specific life
@@ -48,6 +49,10 @@
           readings. However, I hope to include this service at a future time.
         </p>
       </li>
+      <div class="float-left image-pair" layout="column">
+        <img src="images/tarot_reading.jpg" />
+        <img src="images/tarot_spread.jpg" />
+      </div>
       <li>
         <h3 class="md-heading">
           Tarot Cards, $35 for 30 mins or $60 for 1 hour:
@@ -94,6 +99,7 @@
           <li>4 sessions at $150</li>
           <li>5 sessions at $175</li>
         </ol>
+        <img src="images/rumi.jpg" class="float-left rumi" />
         <p>
           Some of the benefits of life coaching include; Natal Chart reading, Tarot Card readings as
           needed, general Spiritual Counseling and Spiritual Awareness sessions. You can determine
