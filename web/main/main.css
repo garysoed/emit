@@ -12,12 +12,9 @@ em-main > md-content > .title-container {
   width: 100%;
 }
 
-em-main > md-content > .title-container {
-  margin: 2rem 0 2rem 4rem;
-}
-
 em-main > md-content > .title-container > img {
   height: 10rem;
+  margin: 2rem 0 2rem 4rem;
 }
 
 /*em-main > md-content > *,
