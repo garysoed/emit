@@ -17,14 +17,16 @@ gn.exec('compile-test', gn.series(
     gn.parallel(
       'web/about:compile-test',
       'web/main:compile-test',
-      'web/navigate:compile-test'
+      'web/navigate:compile-test',
+      'web/schedule:compile-test'
     )));
 
 gn.exec('lint', gn.parallel(
   'web:lint',
   'web/about:lint',
   'web/main:lint',
-  'web/navigate:lint'
+  'web/navigate:lint',
+  'web/schedule:lint'
 ));
 
 // TODO(gs): Refactor this.
@@ -61,7 +63,7 @@ gn.exec('deploy', gn.series(
             'out/css.css',
             'out/images/**',
             'index.html'
-          ], 
+          ],
           { base: '.' })
           .pipe(gn.dest('server/src/main/webapp'));
     }));

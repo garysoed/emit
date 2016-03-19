@@ -12,9 +12,9 @@
         <em-nav-button flex view="$ctrl.views.ABOUT">
           About
         </em-nav-button>
-        <!-- <em-nav-button flex view="$ctrl.views.SCHEDULE">
+        <em-nav-button flex view="$ctrl.views.SCHEDULE">
           Schedule
-        </em-nav-button> -->
+        </em-nav-button>
         <div flex>
           Blog
         </div>

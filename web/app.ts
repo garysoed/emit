@@ -1,5 +1,6 @@
 import AboutViewModule from './about/about-view';
 import MainModule from './main/main';
+import ScheduleViewModule from './schedule/schedule-view';
 
 angular
     .module('em.App', [
@@ -8,6 +9,7 @@ angular
       'ngRoute',
       AboutViewModule.name,
       MainModule.name,
+      ScheduleViewModule.name,
     ])
     .config((
         $mdThemingProvider: angular.material.IThemingProvider,

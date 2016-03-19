@@ -1,0 +1,30 @@
+<form layout="column" class="md-body-1">
+  <md-input-container>
+    <label>Name</label>
+    <input ng-model="$ctrl.name" required />
+  </md-input-container>
+  <md-input-container>
+    <label>Email</label>
+    <input ng-model="$ctrl.email" type="email" required />
+  </md-input-container>
+  <md-input-container>
+    <label>Type of Appointment</label>
+    <md-select ng-model="$ctrl.appointmentType">
+      <md-option ng-repeat="appointmentType in $ctrl.appointmentTypes" value="{{appointmentType}}">
+        {{$ctrl.getAppointmentTypeString(appointmentType)}}
+      </md-option>
+    </md-select>
+  </md-input-container>
+  <md-input-container>
+    <label>Message</label>
+    <textarea ng-model="$ctrl.message"></textarea>
+  </md-input-container>
+  <section layout="row" layout-align="end">
+    <md-button ng-click="$ctrl.onSubmitClick()" class="md-primary">
+      Submit
+    </md-button>
+    <md-button ng-click="$ctrl.onClearClick()">
+      Clear
+    </md-button>
+  </section>
+</form>
