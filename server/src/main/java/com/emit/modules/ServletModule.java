@@ -1,4 +1,4 @@
-package com.emit;
+package com.emit.modules;
 
 import dagger.Module;
 import dagger.Provides;
@@ -9,7 +9,7 @@ import javax.servlet.ServletContext;
 public class ServletModule {
   private final ServletContext context;
 
-  ServletModule(ServletContext context) {
+  public ServletModule(ServletContext context) {
     this.context = context;
   }
 

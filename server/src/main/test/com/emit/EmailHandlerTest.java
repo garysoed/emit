@@ -1,5 +1,6 @@
 package com.emit;
 
+import com.emit.model.Settings;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -12,14 +13,11 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.inject.Provider;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.MediaType;
-import java.io.ByteArrayInputStream;
 import java.io.PrintWriter;
 
-import static com.emit.EmailHandler.MAILGUN_DOMAIN_NAME;
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -27,14 +25,14 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EmailHandlerTest {
-  @Mock ServletContext mockServletContext;
+  @Mock Settings mockSettings;
   @Mock Client mockClient;
 
   private EmailHandler handler;
 
   @Before
   public void setUp() throws Exception {
-    handler = new EmailHandler(mockServletContext, new Provider<Client>() {
+    handler = new EmailHandler(mockSettings, new Provider<Client>() {
       @Override
       public Client get() {
         return mockClient;
@@ -46,15 +44,17 @@ public class EmailHandlerTest {
    * Tests that post sends the data correctly.
    */
   @Test
-  public void postNormal() throws Exception {
+  public void post_normal() throws Exception {
     String apiKey = "apiKey";
+    String domainName = "domainName";
     String from = "from";
     String fromName = "fromName";
     String subject = "subject";
     String content = "content";
     int status = 200;
-    when(mockServletContext.getResourceAsStream("/WEB-INF/api.key"))
-        .thenReturn(new ByteArrayInputStream(apiKey.getBytes()));
+
+    when(mockSettings.getMailgunApiKey()).thenReturn(apiKey);
+    when(mockSettings.getMailgunDomainName()).thenReturn(domainName);
 
     HttpServletRequest mockHttpServletRequest = mock(HttpServletRequest.class);
     when(mockHttpServletRequest.getParameter("from")).thenReturn(from);
@@ -73,7 +73,7 @@ public class EmailHandlerTest {
     when(mockWebResource.type(MediaType.APPLICATION_FORM_URLENCODED))
         .thenReturn(mockWebResourceBuilder);
 
-    when(mockClient.resource("https://api.mailgun.net/v3/" + MAILGUN_DOMAIN_NAME + "/messages"))
+    when(mockClient.resource(String.format("https://api.mailgun.net/v3/%s/messages", domainName)))
         .thenReturn(mockWebResource);
 
     PrintWriter mockPrintWriter = mock(PrintWriter.class);
