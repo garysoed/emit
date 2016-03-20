@@ -2,7 +2,13 @@ dependencies:
   pre:
     - sudo apt-get update
     - sudo apt-get install google-chrome-stable
+    - cd server
+    - mvn dependency:resolve
+    - cd -
 
 test:
   override:
     - node_modules/.bin/gulp test
+    - cd server
+    - mvn test
+    - cd -
