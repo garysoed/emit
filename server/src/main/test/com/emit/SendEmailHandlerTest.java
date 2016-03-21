@@ -24,15 +24,15 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class EmailHandlerTest {
+public class SendEmailHandlerTest {
   @Mock Settings mockSettings;
   @Mock Client mockClient;
 
-  private EmailHandler handler;
+  private SendEmailHandler handler;
 
   @Before
   public void setUp() throws Exception {
-    handler = new EmailHandler(mockSettings, new Provider<Client>() {
+    handler = new SendEmailHandler(mockSettings, new Provider<Client>() {
       @Override
       public Client get() {
         return mockClient;

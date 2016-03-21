@@ -17,12 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 
-public class EmailHandler {
+public class SendEmailHandler {
   private final Settings settings;
   private final Provider<Client> clientProvider;
 
   @Inject
-  EmailHandler(@ServletScoped Settings settings) {
+  SendEmailHandler(@ServletScoped Settings settings) {
     this(settings, new Provider<Client>() {
       @Override
       public Client get() {
@@ -32,7 +32,7 @@ public class EmailHandler {
   }
 
   @VisibleForTesting
-  EmailHandler(Settings settings, Provider<Client> clientProvider) {
+  SendEmailHandler(Settings settings, Provider<Client> clientProvider) {
     this.settings = settings;
     this.clientProvider = clientProvider;
   }

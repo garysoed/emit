@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-public class EmailServlet extends HttpServlet {
+public class SendEmailServlet extends HttpServlet {
 
   private ServerComponent serverComponent;
 
