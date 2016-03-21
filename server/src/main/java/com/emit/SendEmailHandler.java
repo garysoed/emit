@@ -1,6 +1,8 @@
 package com.emit;
 
 import com.emit.common.ServletScoped;
+import com.emit.common.ValidationException;
+import com.emit.common.Validator;
 import com.emit.model.Settings;
 import com.google.common.annotations.VisibleForTesting;
 import com.sun.jersey.api.client.Client;
@@ -38,14 +40,27 @@ public class SendEmailHandler {
   }
 
   public void post(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
+      throws ServletException, IOException, ValidationException {
+    // Validates the data
+    Validator validator = Validator.newInstance();
+    String from = validator.check(req.getParameter("from")).exists().orError("from is required");
+    String fromName = validator.check(req.getParameter("fromName"))
+        .exists()
+        .orError("fromName is required");
+    String subject = validator.check(req.getParameter("subject"))
+        .exists()
+        .orError("subject is required");
+    String content = validator.check(req.getParameter("content"))
+        .exists()
+        .orUse("");
+
+    if (validator.hasError()) {
+      throw validator.getException();
+    }
+
     String mailgunApiKey = settings.getMailgunApiKey();
     String mailgunDomainName = settings.getMailgunDomainName();
 
-    String from = req.getParameter("from");
-    String fromName = req.getParameter("fromName");
-    String subject = req.getParameter("subject");
-    String content = req.getParameter("content");
     resp.setContentType("text/plain");
 
     Client client = this.clientProvider.get();

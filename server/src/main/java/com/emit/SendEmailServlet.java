@@ -1,7 +1,9 @@
 package com.emit;
 
+import com.emit.common.ValidationException;
 import com.emit.components.ServerComponent;
 import com.emit.modules.ServletModule;
+import com.google.appengine.repackaged.com.google.api.client.util.Throwables;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,9 +26,13 @@ public class SendEmailServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    serverComponent
-        .servlet(new ServletModule(this.getServletContext()))
-        .emailHandler()
-        .post(req, resp);
+    try {
+      serverComponent
+          .servlet(new ServletModule(this.getServletContext()))
+          .emailHandler()
+          .post(req, resp);
+    } catch (ValidationException e) {
+      Throwables.propagate(e);
+    }
   }
 }

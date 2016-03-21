@@ -1,5 +1,6 @@
 package com.emit;
 
+import com.emit.common.ValidationException;
 import com.emit.model.Settings;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -19,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 import java.io.PrintWriter;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
@@ -94,5 +96,97 @@ public class SendEmailHandlerTest {
     assertThat(formData.get("text", String.class)).containsExactly(content);
 
     verify(mockHttpServletResponse).setContentType("text/plain");
+  }
+
+  @Test
+  public void post_noFrom() throws Exception {
+    HttpServletRequest mockHttpServletRequest = mock(HttpServletRequest.class);
+    when(mockHttpServletRequest.getParameter("from")).thenReturn(null);
+    when(mockHttpServletRequest.getParameter("fromName")).thenReturn("fromName");
+    when(mockHttpServletRequest.getParameter("subject")).thenReturn("subject");
+    when(mockHttpServletRequest.getParameter("content")).thenReturn("content");
+
+    HttpServletResponse mockHttpServletResponse = mock(HttpServletResponse.class);
+
+    try {
+      handler.post(mockHttpServletRequest, mockHttpServletResponse);
+      fail("Expected ValidationException thrown");
+    } catch (ValidationException e) {
+      assertThat(e).hasMessage("from is required");
+    }
+  }
+
+  @Test
+  public void post_noFromName() throws Exception {
+    HttpServletRequest mockHttpServletRequest = mock(HttpServletRequest.class);
+    when(mockHttpServletRequest.getParameter("from")).thenReturn("from");
+    when(mockHttpServletRequest.getParameter("fromName")).thenReturn(null);
+    when(mockHttpServletRequest.getParameter("subject")).thenReturn("subject");
+    when(mockHttpServletRequest.getParameter("content")).thenReturn("content");
+
+    HttpServletResponse mockHttpServletResponse = mock(HttpServletResponse.class);
+
+    try {
+      handler.post(mockHttpServletRequest, mockHttpServletResponse);
+      fail("Expected ValidationException thrown");
+    } catch (ValidationException e) {
+      assertThat(e).hasMessage("fromName is required");
+    }
+  }
+
+  @Test
+  public void post_noSubject() throws Exception {
+    HttpServletRequest mockHttpServletRequest = mock(HttpServletRequest.class);
+    when(mockHttpServletRequest.getParameter("from")).thenReturn("from");
+    when(mockHttpServletRequest.getParameter("fromName")).thenReturn("fromName");
+    when(mockHttpServletRequest.getParameter("subject")).thenReturn(null);
+    when(mockHttpServletRequest.getParameter("content")).thenReturn("content");
+
+    HttpServletResponse mockHttpServletResponse = mock(HttpServletResponse.class);
+
+    try {
+      handler.post(mockHttpServletRequest, mockHttpServletResponse);
+      fail("Expected ValidationException thrown");
+    } catch (ValidationException e) {
+      assertThat(e).hasMessage("subject is required");
+    }
+  }
+
+  @Test
+  public void post_noContent() throws Exception {
+    when(mockSettings.getMailgunApiKey()).thenReturn("apiKey");
+    when(mockSettings.getMailgunDomainName()).thenReturn("domainName");
+
+    HttpServletRequest mockHttpServletRequest = mock(HttpServletRequest.class);
+    when(mockHttpServletRequest.getParameter("from")).thenReturn("from");
+    when(mockHttpServletRequest.getParameter("fromName")).thenReturn("fromName");
+    when(mockHttpServletRequest.getParameter("subject")).thenReturn("subject");
+    when(mockHttpServletRequest.getParameter("content")).thenReturn(null);
+
+    ClientResponse mockClientResponse = mock(ClientResponse.class);
+    when(mockClientResponse.getStatus()).thenReturn(200);
+
+    WebResource.Builder mockWebResourceBuilder = mock(WebResource.Builder.class);
+    when(mockWebResourceBuilder.post(eq(ClientResponse.class), any(MultivaluedMapImpl.class)))
+        .thenReturn(mockClientResponse);
+
+    WebResource mockWebResource = mock(WebResource.class);
+    when(mockWebResource.type(MediaType.APPLICATION_FORM_URLENCODED))
+        .thenReturn(mockWebResourceBuilder);
+
+    when(mockClient.resource(anyString())).thenReturn(mockWebResource);
+
+    PrintWriter mockPrintWriter = mock(PrintWriter.class);
+    HttpServletResponse mockHttpServletResponse = mock(HttpServletResponse.class);
+    when(mockHttpServletResponse.getWriter()).thenReturn(mockPrintWriter);
+
+    handler.post(mockHttpServletRequest, mockHttpServletResponse);
+
+    ArgumentCaptor<MultivaluedMapImpl> formDataCaptor =
+        ArgumentCaptor.forClass(MultivaluedMapImpl.class);
+    verify(mockWebResourceBuilder).post(eq(ClientResponse.class), formDataCaptor.capture());
+
+    MultivaluedMapImpl formData = formDataCaptor.getValue();
+    assertThat(formData.get("text", String.class)).containsExactly("");
   }
 }
