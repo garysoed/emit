@@ -82,6 +82,7 @@
         "node_modules/gs-tools/src/net/http.ts",
         "node_modules/gs-tools/src/ng/base-service_test.js",
         "node_modules/gs-tools/src/ng/base-service.ts",
+        "node_modules/gs-tools/src/ng/fake-scope.ts",
         "node_modules/gs-tools/src/ng/gulpfile.js",
         "node_modules/gs-tools/src/ng/README.md",
         "node_modules/gs-tools/src/test-base.ts",

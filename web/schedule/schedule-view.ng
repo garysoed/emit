@@ -20,7 +20,7 @@
     <textarea ng-model="$ctrl.message"></textarea>
   </md-input-container>
   <section layout="row" layout-align="end">
-    <md-button ng-click="$ctrl.onSubmitClick()" class="md-primary">
+    <md-button ng-click="$ctrl.onSubmitClick($event)" class="md-primary">
       Submit
     </md-button>
     <md-button ng-click="$ctrl.onClearClick()">

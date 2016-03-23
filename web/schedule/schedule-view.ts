@@ -12,10 +12,17 @@ export enum AppointmentType {
 }
 
 export class ScheduleViewCtrl {
+  private $mdDialog_: angular.material.IDialogService;
+  private $scope_: angular.IScope;
   private appointmentType_: AppointmentType;
   private email_: string;
   private message_: string;
   private name_: string;
+
+  constructor($mdDialog: angular.material.IDialogService, $scope: angular.IScope) {
+    this.$mdDialog_ = $mdDialog;
+    this.$scope_ = $scope;
+  }
 
   private clearFields_(): void {
     this.appointmentType_ = null;
@@ -85,7 +92,7 @@ export class ScheduleViewCtrl {
     this.clearFields_();
   }
 
-  onSubmitClick(): Promise<any> {
+  onSubmitClick($event: MouseEvent): Promise<any> {
     let appointmentTypeString = this.getAppointmentTypeString(this.appointmentType_);
     return Http
         .post('/email')
@@ -98,6 +105,14 @@ export class ScheduleViewCtrl {
         .send()
         .then(() => {
           this.clearFields_();
+          this.$mdDialog_.show(
+              this.$mdDialog_.alert()
+                  .clickOutsideToClose(true)
+                  .title('Thank you for scheduling')
+                  .textContent('We will contact you within one business day')
+                  .ok('OK')
+                  .targetEvent($event));
+          this.$scope_.$apply(() => undefined);
         });
   }
 }

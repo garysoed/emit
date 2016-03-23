@@ -1,13 +1,17 @@
 em-main > md-content > .sticky > md-toolbar > .toolbar-root,
 em-main > md-content > .view-root {
-  width: 90rem;
+  width: 60rem;
 }
 
 em-main > md-content > .view-root {
   background-color: white;
-  padding-left: 5rem;
-  padding-right: 5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
   margin-bottom: 200px;
+}
+
+em-main > md-content > .view-root > * {
+  margin-bottom: 3rem;
 }
 
 em-main > md-content > .sticky,
@@ -20,7 +24,7 @@ em-main > md-content > .title-container {
 }
 
 em-main > md-content > .title-container > img {
-  height: 10rem;
+  height: 6rem;
   margin: 2rem 0 2rem 4rem;
 }
 
