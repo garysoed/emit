@@ -1,49 +1,49 @@
-em-main > md-content > .sticky > md-toolbar > .toolbar-root,
-em-main > md-content > .view-root {
+.em-main__toolbar-root,
+.em-main__view-root {
   width: 60rem;
 }
 
-em-main > md-content > .view-root {
+.em-main__view-root {
   background-color: white;
   padding-left: 3rem;
   padding-right: 3rem;
   margin-bottom: 200px;
 }
 
-em-main > md-content > .view-root > * {
+.em-main__view-root > * {
   margin-bottom: 3rem;
 }
 
-em-main > md-content > .sticky,
-em-main > md-content > .title-container {
+.em-main__sticky,
+.em-main__title-container {
   width: 100%;
 }
 
-em-main > md-content > .title-container {
+.em-main__title-container {
   background-color: white;
 }
 
-em-main > md-content > .title-container > img {
+.em-main__title-container > img {
   height: 6rem;
   margin: 2rem 0 2rem 4rem;
 }
 
-em-main > md-content {
+.em-main__root {
   background-color: var(--color-primary-light);
   height: 100vh;
 }
 
-em-main > md-content > .sticky {
+.em-main__sticky {
   height: 64px;
   min-height: 64px;
 }
 
-em-main > md-content > .sticky > .stick {
+.em-main__stick {
   position: fixed;
   top: 0;
 }
 
-em-main > md-content > .sticky .logo {
+.em-main__sticky .em-main__logo {
   position: absolute;
   left: 0;
   top: 8px;
@@ -55,11 +55,11 @@ em-main > md-content > .sticky .logo {
   transition: width .2s;
 }
 
-em-main > md-content > .sticky > .stick .logo {
+.em-main__stick .em-main__logo {
   width: 200px;
   transition: width .2s;
 }
 
-em-main .logo img {
+.em-main__logo img {
   height: 48px;
 }

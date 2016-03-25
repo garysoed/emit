@@ -1,14 +1,14 @@
-<md-content layout="column" layout-align="start center">
-  <div class="title-container">
+<md-content gs-bem-root="em-main" gs-bem-class="root" layout="column" layout-align="start center">
+  <div gs-bem-class="title-container">
     <img src="images/logo_color.png" />
   </div>
-  <div class="sticky">
+  <div gs-bem-class="sticky">
     <md-toolbar layout="row" layout-align="center">
-      <div class="logo">
+      <div gs-bem-class="logo">
         <img src="images/logo_mini.png" hide-xs hide-sm hide-md />
         <img src="images/icon_mini.png" hide-xs hide-sm hide-gt-md/>
       </div>
-      <div class="toolbar-root" layout="row">
+      <div gs-bem-class="toolbar-root" layout="row">
         <em-nav-button flex view="$ctrl.views.ABOUT">
           About
         </em-nav-button>
@@ -21,7 +21,7 @@
       </div>
     </md-toolbar>
   </div>
-  <div class="view-root">
+  <div gs-bem-class="view-root">
     <div ng-view flex></div>
   </div>
 </md-content>

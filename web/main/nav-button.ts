@@ -1,3 +1,4 @@
+import BemClassModule from '../../node_modules/gs-tools/src/ng/bem-class';
 import NavigateServiceModule, { NavigateService } from '../navigate/navigate-service';
 import ViewType from '../navigate/view-type';
 
@@ -30,6 +31,7 @@ export class NavButtonCtrl {
 export default angular
     .module('main.NavButton', [
       'ngMaterial',
+      BemClassModule.name,
       NavigateServiceModule.name,
     ])
     .component('emNavButton', {
