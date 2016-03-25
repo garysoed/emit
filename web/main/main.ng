@@ -3,7 +3,7 @@
     <img src="images/logo_color.png" />
   </div>
   <div gs-bem-class="sticky">
-    <md-toolbar layout="row" layout-align="center">
+    <md-toolbar gs-bem-class="toolbar" layout="row" layout-align="center">
       <div gs-bem-class="logo">
         <img src="images/logo_mini.png" hide-xs hide-sm hide-md />
         <img src="images/icon_mini.png" hide-xs hide-sm hide-gt-md/>

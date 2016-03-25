@@ -25,7 +25,7 @@ export class MainCtrl extends BaseDisposable {
 
   private onWatcherChanged_(): void {
     let isSticky = this.watcher_.state !== OverflowWatcherState.UNCOVERED;
-    this.toolbar_.classList.toggle('em-main__stick', isSticky);
+    this.toolbar_.classList.toggle('stick', isSticky);
     this.toolbar_.classList.toggle('md-whiteframe-z1', isSticky);
   }
 

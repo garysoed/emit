@@ -38,7 +38,7 @@
   min-height: 64px;
 }
 
-.em-main__stick {
+.em-main__toolbar.stick {
   position: fixed;
   top: 0;
 }
@@ -55,7 +55,7 @@
   transition: width .2s;
 }
 
-.em-main__stick .em-main__logo {
+.em-main__toolbar.stick .em-main__logo {
   width: 200px;
   transition: width .2s;
 }
