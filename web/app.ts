@@ -19,7 +19,7 @@ angular
           .primaryPalette('light-blue')
           .accentPalette('lime');
       $routeProvider.otherwise({
-        redirectTo: '/about'
+        redirectTo: '/about',
       });
     });
 
