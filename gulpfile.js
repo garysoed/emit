@@ -3,9 +3,9 @@ var path= require('path');
 var gn = require('./node_modules/gs-tools/gulp/gulp-node')(__dirname, require('gulp'));
 var karmaTasks = require('./node_modules/gs-tools/gulp-tasks/karma')(
     require('karma').Server);
-var mythTasks = require('./node_modules/gs-tools/gulp-tasks/myth')(
+var sassTasks = require('./node_modules/gs-tools/gulp-tasks/sass')(
     require('gulp-concat'),
-    require('gulp-myth'));
+    require('gulp-sass'));
 var packTasks = require('./node_modules/gs-tools/gulp-tasks/pack')(
     require('vinyl-named'),
     require('gulp-sourcemaps'),
@@ -41,7 +41,7 @@ gn.exec('compile', gn.series('_compile'));
 gn.exec('compile-ui', gn.series(
     gn.parallel(
         '_compile',
-        mythTasks.compile(gn, 'web/**'),
+        sassTasks.compile(gn, 'web/**'),
         function images_() {
           return gn.src(['images/**'])
               .pipe(gn.dest('out/images'));

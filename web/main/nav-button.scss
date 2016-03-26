@@ -1,0 +1,18 @@
+@import '../app';
+
+.em-nav-button {
+  &__root {
+    position: relative;
+  }
+
+  &__root.selected {
+    background-color: $color-primary-dark;
+    color: #fff;
+  }
+
+  &__content {
+    cursor: pointer;
+    line-height: 64px;
+    text-transform: uppercase;
+  }
+}

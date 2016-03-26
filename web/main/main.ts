@@ -7,13 +7,18 @@ import ViewType from '../navigate/view-type';
 
 
 export class MainCtrl extends BaseDisposable {
+  private $scope_: angular.IScope;
+  private isSticky_: boolean;
   private toolbar_: HTMLElement;
   private watcher_: OverflowWatcher;
 
-  constructor($element: angular.IAugmentedJQuery) {
+  constructor($scope: angular.IScope, $element: angular.IAugmentedJQuery) {
     super();
-    let sticky = $element[0].querySelector('[gs-bem-class="sticky"]');
+    this.$scope_ = $scope;
+    this.isSticky_ = false;
     this.toolbar_ = <HTMLElement> $element[0].querySelector('md-toolbar');
+
+    let sticky = $element[0].querySelector(`[gs-bem-class="'sticky'"]`);
     this.watcher_ = new OverflowWatcher(
         <HTMLElement> $element[0].querySelector('md-content'),
         <HTMLElement> sticky);
@@ -24,9 +29,12 @@ export class MainCtrl extends BaseDisposable {
   }
 
   private onWatcherChanged_(): void {
-    let isSticky = this.watcher_.state !== OverflowWatcherState.UNCOVERED;
-    this.toolbar_.classList.toggle('stick', isSticky);
-    this.toolbar_.classList.toggle('md-whiteframe-z1', isSticky);
+    this.isSticky_ = this.watcher_.state !== OverflowWatcherState.UNCOVERED;
+    this.$scope_.$apply(() => undefined);
+  }
+
+  get isSticky(): boolean {
+    return this.isSticky_;
   }
 
   get views(): any {

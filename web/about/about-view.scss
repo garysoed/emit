@@ -1,0 +1,43 @@
+.em-about-view {
+  &__root img {
+    height: 200px;
+  }
+
+  &__float-left {
+    float: left;
+    margin-right: 1rem;
+  }
+
+  &__float-right {
+    float: right;
+    margin-left: 1rem;
+  }
+
+  &__image-pair {
+    margin-right: 3rem;
+  }
+
+  &__rumi {
+    margin-top: 2rem;
+    height: 205px;
+  }
+
+  &__root blockquote {
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  &__root blockquote::before {
+    content: "\0201c"
+  }
+
+  &__root blockquote::after {
+    content: "\0201d"
+  }
+
+  &__alphabet {
+    list-style-type: lower-alpha;
+  }
+}

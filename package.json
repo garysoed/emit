@@ -20,6 +20,7 @@
     "gulp": "git://github.com/gulpjs/gulp.git#4.0",
     "gulp-concat": "^2.6.0",
     "gulp-myth": "^1.1.0",
+    "gulp-sass": "^2.2.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-tslint": "^4.3.2",
     "gulp-typescript": "^2.11.0",

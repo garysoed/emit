@@ -1,17 +1,20 @@
 import TestBase from '../test-base';
 TestBase.config();
 
-import TestDispose from '../../node_modules/gs-tools/src/testing/test-dispose';
+import FakeScope from '../../node_modules/gs-tools/src/ng/fake-scope';
 import { MainCtrl } from './main';
 import Mocks from '../../node_modules/gs-tools/src/mock/mocks';
 import { State as OverflowWatcherState } from '../../node_modules/gs-tools/src/ui/overflow-watcher';
+import TestDispose from '../../node_modules/gs-tools/src/testing/test-dispose';
 
 
 describe('main.MainCtrl', () => {
+  let mock$scope;
   let mockToolbar;
   let ctrl;
 
   beforeEach(() => {
+    mock$scope = FakeScope.create();
     mockToolbar = Mocks.object('Toolbar');
     mockToolbar.classList = jasmine.createSpyObj('Toolbar#classList', ['toggle']);
 
@@ -20,7 +23,7 @@ describe('main.MainCtrl', () => {
       '.sticky': document.createElement('div'),
       'md-content': document.createElement('div'),
     });
-    ctrl = new MainCtrl(<any> [mock$element]);
+    ctrl = new MainCtrl(mock$scope, <any> [mock$element]);
     TestDispose.add(ctrl);
   });
 
