@@ -31,19 +31,23 @@ describe('main.MainCtrl', () => {
     it('should set the correct classes on the toolbar if uncovered', () => {
       ctrl['watcher_'] = { state: OverflowWatcherState.UNCOVERED };
 
+      spyOn(mock$scope, '$apply');
+
       ctrl['onWatcherChanged_']();
 
-      expect(mockToolbar.classList.toggle).toHaveBeenCalledWith('stick', false);
-      expect(mockToolbar.classList.toggle).toHaveBeenCalledWith('md-whiteframe-z1', false);
+      expect(ctrl.isSticky).toEqual(false);
+      expect(mock$scope.$apply).toHaveBeenCalledWith(jasmine.any(Function));
     });
 
     it('should set the correct classes on the toolbar if covered', () => {
       ctrl['watcher_'] = { state: OverflowWatcherState.PARTIAL };
 
+      spyOn(mock$scope, '$apply');
+
       ctrl['onWatcherChanged_']();
 
-      expect(mockToolbar.classList.toggle).toHaveBeenCalledWith('stick', true);
-      expect(mockToolbar.classList.toggle).toHaveBeenCalledWith('md-whiteframe-z1', true);
+      expect(ctrl.isSticky).toEqual(true);
+      expect(mock$scope.$apply).toHaveBeenCalledWith(jasmine.any(Function));
     });
   });
 });
