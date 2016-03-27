@@ -4,3 +4,12 @@ $color-primary-dark: #0288D1;
 *:focus {
   outline: none;
 }
+
+a {
+  color: $color-primary-light;
+  text-decoration: none;
+}
+
+a:visited {
+  color: $color-primary-dark;
+}

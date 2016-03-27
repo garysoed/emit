@@ -1,16 +1,10 @@
+import AppointmentType from '../model/appointment-type';
 import BemClassModule from '../../node_modules/gs-tools/src/ng/bem-class';
 import Cache from '../../node_modules/gs-tools/src/data/a-cache';
 import Enums from '../../node_modules/gs-tools/src/typescript/enums';
 import Http from '../../node_modules/gs-tools/src/net/http';
+import NavigateServiceModule, { NavigateService } from '../navigate/navigate-service';
 import ViewType from '../navigate/view-type';
-
-export enum AppointmentType {
-  COACH,
-  COUNSEL,
-  NATAL,
-  TAROT_LONG,
-  TAROT_SHORT
-}
 
 export class ScheduleViewCtrl {
   private $mdDialog_: angular.material.IDialogService;
@@ -21,10 +15,13 @@ export class ScheduleViewCtrl {
   private message_: string;
   private name_: string;
 
-  constructor($mdDialog: angular.material.IDialogService, $scope: angular.IScope) {
+  constructor(
+      $mdDialog: angular.material.IDialogService,
+      $scope: angular.IScope,
+      NavigateService: NavigateService) {
     this.$mdDialog_ = $mdDialog;
     this.$scope_ = $scope;
-    this.appointmentType_ = null;
+    this.appointmentType_ = NavigateService.scheduleViewParams.appointmentType || null;
     this.birthDate_ = null;
     this.email_ = '';
     this.message_ = '';
@@ -146,6 +143,7 @@ export default angular
     .module('schedule.ScheduleView', [
       'ngRoute',
       BemClassModule.name,
+      NavigateServiceModule.name,
     ])
     .config(($routeProvider: angular.ui.IUrlRouterProvider) => {
       $routeProvider.when(

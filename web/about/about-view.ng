@@ -41,14 +41,15 @@
           growth.  A necessary growth, meant to prepare and propel you on your life journey,
           ultimate karmic fulfillment and co-creation. Also, the reading will help you better
           understand birthright gifts and challenges and thereby fulfill your life purpose and
-          aspirations.  Click here to schedule a Natal Chart reading.
+          aspirations.  Click <a href ng-click="$ctrl.onNatalClick()">here</a> to schedule a Natal
+          Chart reading.
         </p>
         <p>
           * At this time I do not offer Astrological Forecast readings, also know as horoscope
           readings. However, I hope to include this service at a future time.
         </p>
       </li>
-      <div gs-bem-class="[float-left, image-pair]" layout="column">
+      <div gs-bem-class="['float-left', 'image-pair']" layout="column">
         <img src="images/tarot_reading.jpg" />
         <img src="images/tarot_spread.jpg" />
       </div>
@@ -63,9 +64,9 @@
           analysis of the question and allow additional time for follow up questions.
         </p>
         <p>
-          <!-- TODO(gs): Add link to schedule / contact -->
           Tarot card readings help us to better understand our motivations, intentions, blocks and
-          personal power.  Click here to schedule a Tarot Card reading.
+          personal power.  Click <a href ng-click="$ctrl.onTarotClick()">here</a> to schedule a
+          Tarot Card reading.
         </p>
       </li>
       <li>
@@ -82,8 +83,9 @@
           The format is freelance and will consist of an private interchange between us. I will use
           both my Psychology and Health Care background, Tarot, Astrology, Spiritual Guides and even
           Numerology to determine how to best help invest and equip you with the knowledge to both
-          better understand and overcome the issue at hand.  Click here to schedule a personal
-          Spiritual Counseling session.
+          better understand and overcome the issue at hand.  Click
+          <a href ng-click="$ctrl.onCounselClick()">here</a> to schedule a personal Spiritual
+          Counseling session.
         </p>
       </li>
       <li>
@@ -98,7 +100,7 @@
           <li>4 sessions at $150</li>
           <li>5 sessions at $175</li>
         </ol>
-        <img src="images/rumi.jpg" gs-bem-class="[float-left, rumi]" />
+        <img src="images/rumi.jpg" gs-bem-class="['float-left', 'rumi']" />
         <p>
           Some of the benefits of life coaching include; Natal Chart reading, Tarot Card readings as
           needed, general Spiritual Counseling and Spiritual Awareness sessions. You can determine
@@ -107,8 +109,8 @@
           discussions about past and current relating habits that may be helping or hurting your
           prospects for finding and securing a lifelong, fulfilling Romantic Partnership, Personal
           Goals, Spiritual Development, or a topic of your choosing. The goal of Life Coaching is to
-          help you gain insight and independence in the area of coaching.  Click here to schedule
-          Life Coaching sessions.
+          help you gain insight and independence in the area of coaching.  Click
+          <a href ng-click="$ctrl.onCoachClick()">here</a> to schedule Life Coaching sessions.
         </p>
       </li>
     </ol>

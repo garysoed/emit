@@ -1,27 +1,55 @@
+import AppointmentType from '../model/appointment-type';
 import Enums from '../../node_modules/gs-tools/src/typescript/enums';
+import RouteServiceModule, { RouteService } from '../../node_modules/gs-tools/src/ng/route-service';
 import { ViewType } from './view-type';
 
 
 // TODO(gs): BaseService
 export class NavigateService {
-  private $location_: angular.ILocationService;
+  private routeService_: RouteService;
 
-  constructor($location: angular.ILocationService) {
-    this.$location_ = $location;
+  constructor(gsRouteService: RouteService) {
+    this.routeService_ = gsRouteService;
   }
 
   get currentView(): ViewType {
-    let path = this.$location_.path();
+    let path = this.routeService_.path;
 
     // Trim off the /
     return Enums.fromLowerCaseString<ViewType>(path.substring(1), ViewType);
   }
 
+  get scheduleViewParams(): { appointmentType?: AppointmentType } {
+    let params = this.routeService_.params;
+    let scheduleParams = {};
+    if (params['appointmentType'] !== undefined) {
+      scheduleParams['appointmentType'] =
+          Enums.fromLowerCaseString(params['appointmentType'], AppointmentType);
+    }
+
+    return scheduleParams;
+  }
+
   to(view: ViewType): void {
-    this.$location_.path(Enums.toLowerCaseString(view, ViewType));
+    this.routeService_.to(Enums.toLowerCaseString(view, ViewType));
+  }
+
+  toSchedule(appointmentType?: AppointmentType) {
+    let path = Enums.toLowerCaseString(ViewType.SCHEDULE, ViewType);
+    if (appointmentType !== undefined) {
+      this.routeService_.to(
+          path,
+          {
+            'appointmentType': Enums.toLowerCaseString(appointmentType, AppointmentType)
+          });
+    } else {
+      this.routeService_.to(path);
+    }
   }
 }
 
 export default angular
-    .module('navigate.NavigateService', [])
+    .module('navigate.NavigateService', [
+      RouteServiceModule.name
+    ])
     .service('NavigateService', NavigateService);

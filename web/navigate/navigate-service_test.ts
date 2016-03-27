@@ -1,18 +1,19 @@
 import TestBase from '../test-base';
 TestBase.config();
 
+import AppointmentType from '../model/appointment-type';
 import { NavigateService } from './navigate-service';
 import ViewType from './view-type';
 
 
 describe('navigate.NavigateService', () => {
-  let mock$location;
+  let mockRouteService;
   let service;
 
   beforeEach(() => {
-    mock$location = jasmine.createSpyObj('$location', ['path']);
+    mockRouteService = jasmine.createSpyObj('RouteService', ['to']);
 
-    service = new NavigateService(mock$location);
+    service = new NavigateService(mockRouteService);
   });
 
   describe('get currentView', () => {
@@ -20,10 +21,9 @@ describe('navigate.NavigateService', () => {
       let view = ViewType.ABOUT;
       let path = `/about`;
 
-      mock$location.path.and.returnValue(path);
+      mockRouteService.path = path;
 
       expect(service.currentView).toEqual(view);
-      expect(mock$location.path).toHaveBeenCalledWith();
     });
   });
 
@@ -33,7 +33,23 @@ describe('navigate.NavigateService', () => {
 
       service.to(view);
 
-      expect(mock$location.path).toHaveBeenCalledWith(`about`);
+      expect(mockRouteService.to).toHaveBeenCalledWith(`about`);
+    });
+  });
+
+  describe('toSchedule', () => {
+    it('should set the appointment type as search param if defined', () => {
+      let appointmentType = AppointmentType.TAROT_LONG;
+      service.toSchedule(appointmentType);
+
+      expect(mockRouteService.to).toHaveBeenCalledWith('schedule', {
+        'appointmentType': 'tarot_long'
+      });
+    });
+
+    it('should ignore the search param if appointment type is not defined', () => {
+      service.toSchedule();
+      expect(mockRouteService.to).toHaveBeenCalledWith('schedule');
     });
   });
 });

@@ -1,23 +1,35 @@
 import TestBase from '../test-base';
 TestBase.config();
 
-import { AppointmentType, ScheduleViewCtrl } from './schedule-view';
+import AppointmentType from '../model/appointment-type';
 import FakeScope from '../../node_modules/gs-tools/src/ng/fake-scope';
 import Http from '../../node_modules/gs-tools/src/net/http';
 import Mocks from '../../node_modules/gs-tools/src/mock/mocks';
+import { ScheduleViewCtrl } from './schedule-view';
 
 describe('schedule.ScheduleViewCtrl', () => {
   let mock$mdDialog;
   let mock$scope;
+  let mockNavigateService;
   let mockScheduleForm;
   let ctrl;
 
   beforeEach(() => {
     mock$mdDialog = jasmine.createSpyObj('$mdDialog', ['alert', 'show']);
     mock$scope = FakeScope.create();
+    mockNavigateService = Mocks.object('NavigateService');
+    mockNavigateService.scheduleViewParams = {};
     mockScheduleForm = {};
     mock$scope['scheduleForm'] = mockScheduleForm;
-    ctrl = new ScheduleViewCtrl(mock$mdDialog, mock$scope);
+    ctrl = new ScheduleViewCtrl(mock$mdDialog, mock$scope, mockNavigateService);
+  });
+
+  it('should default appointment type to the value in navigate service', () => {
+    let appointmentType = AppointmentType.COUNSEL;
+    mockNavigateService.scheduleViewParams.appointmentType = appointmentType;
+    ctrl = new ScheduleViewCtrl(mock$mdDialog, mock$scope, mockNavigateService);
+
+    expect(ctrl.appointmentType).toEqual(String(appointmentType));
   });
 
   describe('get / set appointmentType', () => {
