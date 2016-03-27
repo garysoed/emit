@@ -9,11 +9,14 @@ import Mocks from '../../node_modules/gs-tools/src/mock/mocks';
 describe('schedule.ScheduleViewCtrl', () => {
   let mock$mdDialog;
   let mock$scope;
+  let mockScheduleForm;
   let ctrl;
 
   beforeEach(() => {
     mock$mdDialog = jasmine.createSpyObj('$mdDialog', ['alert', 'show']);
     mock$scope = FakeScope.create();
+    mockScheduleForm = {};
+    mock$scope['scheduleForm'] = mockScheduleForm;
     ctrl = new ScheduleViewCtrl(mock$mdDialog, mock$scope);
   });
 
@@ -30,11 +33,39 @@ describe('schedule.ScheduleViewCtrl', () => {
       expect(ctrl.getAppointmentTypeString(AppointmentType.NATAL)).toMatch(/Natal Chart/);
     });
 
+    it('should return empty string for null value', () => {
+      expect(ctrl.getAppointmentTypeString(null)).toEqual('');
+    });
+
+    it('should return empty string for undefined value', () => {
+      expect(ctrl.getAppointmentTypeString(undefined)).toEqual('');
+    });
+
     it('should throw error if not handled', () => {
       expect(() => {
         ctrl.getAppointmentTypeString(-1);
       }).toThrowError(/Unhandled appointment type/);
     });
+  });
+
+  describe('isInvalid', () => {
+    it('should return true if the schedule form is invalid', () => {
+      mockScheduleForm.$invalid = true;
+
+      expect(ctrl.isInvalid).toEqual(true);
+    });
+
+    it('should return true if the appointment type is not selected', () => {
+      mockScheduleForm.$invalid = false;
+      expect(ctrl.isInvalid).toEqual(true);
+    });
+
+    it('should return false if the schedule form is valid and appointment type is selected',
+        () => {
+          mockScheduleForm.$invalid = false;
+          ctrl.appointmentType = '2';
+          expect(ctrl.isInvalid).toEqual(false);
+        });
   });
 
   describe('onClearClick', () => {
@@ -98,6 +129,18 @@ describe('schedule.ScheduleViewCtrl', () => {
             expect(mockAlertDialog.targetEvent).toHaveBeenCalledWith(mockEvent);
             done();
           }, done.fail);
+    });
+  });
+
+  describe('requiresBirthTime', () => {
+    it('should return true if the appointment type is NATAL', () => {
+      ctrl.appointmentType = String(AppointmentType.NATAL);
+      expect(ctrl.requiresBirthTime).toEqual(true);
+    });
+
+    it('should return false if the appointment type is not NATAL', () => {
+      ctrl.appointmentType = String(AppointmentType.COACH);
+      expect(ctrl.requiresBirthTime).toEqual(false);
     });
   });
 });

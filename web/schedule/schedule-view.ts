@@ -1,3 +1,4 @@
+import BemClassModule from '../../node_modules/gs-tools/src/ng/bem-class';
 import Cache from '../../node_modules/gs-tools/src/data/a-cache';
 import Enums from '../../node_modules/gs-tools/src/typescript/enums';
 import Http from '../../node_modules/gs-tools/src/net/http';
@@ -15,6 +16,7 @@ export class ScheduleViewCtrl {
   private $mdDialog_: angular.material.IDialogService;
   private $scope_: angular.IScope;
   private appointmentType_: AppointmentType;
+  private birthDate_: Date;
   private email_: string;
   private message_: string;
   private name_: string;
@@ -22,6 +24,11 @@ export class ScheduleViewCtrl {
   constructor($mdDialog: angular.material.IDialogService, $scope: angular.IScope) {
     this.$mdDialog_ = $mdDialog;
     this.$scope_ = $scope;
+    this.appointmentType_ = null;
+    this.birthDate_ = null;
+    this.email_ = '';
+    this.message_ = '';
+    this.name_ = '';
   }
 
   private clearFields_(): void {
@@ -50,6 +57,13 @@ export class ScheduleViewCtrl {
         .fromNumberString<AppointmentType>(appointmentType, AppointmentType);
   }
 
+  get birthDate(): Date {
+    return this.birthDate_;
+  }
+  set birthDate(date: Date) {
+    this.birthDate_ = date;
+  }
+
   get email(): string {
     return this.email_;
   }
@@ -59,6 +73,9 @@ export class ScheduleViewCtrl {
 
   getAppointmentTypeString(appointmentType: AppointmentType): string {
     switch (appointmentType) {
+      case null:
+      case undefined:
+        return '';
       case AppointmentType.COACH:
         return 'Life coaching';
       case AppointmentType.COUNSEL:
@@ -72,6 +89,10 @@ export class ScheduleViewCtrl {
       default:
         throw Error(`Unhandled appointment type: ${appointmentType}`);
     }
+  }
+
+  get isInvalid(): boolean {
+    return this.$scope_['scheduleForm'].$invalid || !this.appointmentType;
   }
 
   get message(): string {
@@ -115,10 +136,17 @@ export class ScheduleViewCtrl {
           this.$scope_.$apply(() => undefined);
         });
   }
+
+  get requiresBirthTime(): boolean {
+    return this.appointmentType_ === AppointmentType.NATAL;
+  }
 }
 
 export default angular
-    .module('schedule.ScheduleView', ['ngRoute'])
+    .module('schedule.ScheduleView', [
+      'ngRoute',
+      BemClassModule.name,
+    ])
     .config(($routeProvider: angular.ui.IUrlRouterProvider) => {
       $routeProvider.when(
           `/${Enums.toLowerCaseString(ViewType.SCHEDULE, ViewType)}`,

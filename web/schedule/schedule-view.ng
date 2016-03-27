@@ -1,26 +1,54 @@
-<form layout="column" class="md-body-1">
+<form
+    class="md-body-1"
+    gs-bem-root="em-schedule"
+    layout="column"
+    name="scheduleForm">
   <md-input-container>
     <label>Name</label>
-    <input ng-model="$ctrl.name" required />
+    <input name="name" ng-model="$ctrl.name" required />
+    <div ng-messages="scheduleForm.name.$error">
+      <div ng-message="required">Name is required</div>
+    </div>
   </md-input-container>
   <md-input-container>
     <label>Email</label>
-    <input ng-model="$ctrl.email" type="email" required />
+    <input name="email" ng-model="$ctrl.email" required type="email" />
+    <div ng-messages="scheduleForm.email.$error">
+      <div ng-message="required">Email is required</div>
+    </div>
   </md-input-container>
   <md-input-container>
     <label>Type of Appointment</label>
-    <md-select ng-model="$ctrl.appointmentType">
+    <md-select name="appointmentType" ng-model="$ctrl.appointmentType">
       <md-option ng-repeat="appointmentType in $ctrl.appointmentTypes" value="{{appointmentType}}">
         {{$ctrl.getAppointmentTypeString(appointmentType)}}
       </md-option>
     </md-select>
   </md-input-container>
+
+  <section layout="row" ng-if="$ctrl.requiresBirthTime">
+    <div flex>
+      <md-datepicker
+          md-max-date="$ctrl.maxDate"
+          md-placeholder="Birth date"
+          name="birthdate"
+          ng-model="$ctrl.birthDate"
+          required>
+      </md-datepicker>
+      <div ng-messages="scheduleForm.birthdate.$error">
+        <div gs-bem-class="'error'" ng-message="required">Birth date is required</div>
+      </div>
+    </div>
+  </section>
   <md-input-container>
     <label>Message</label>
     <textarea ng-model="$ctrl.message"></textarea>
   </md-input-container>
   <section layout="row" layout-align="end">
-    <md-button ng-click="$ctrl.onSubmitClick($event)" class="md-primary">
+    <md-button
+        class="md-primary"
+        ng-click="$ctrl.onSubmitClick($event)"
+        ng-disabled="$ctrl.isInvalid">
       Submit
     </md-button>
     <md-button ng-click="$ctrl.onClearClick()">
