@@ -50,7 +50,7 @@ gn.exec('compile-ui', gn.series(
           return gn.src(['web/**/*.ng'])
               .pipe(gn.dest('out/web'));
         }),
-    packTasks.app(gn, 'web/app.js', 'js.js')
+    packTasks.app(gn, ['web/app.js'], 'js.js')
 ));
 
 gn.exec('deploy', gn.series(
