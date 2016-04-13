@@ -145,12 +145,8 @@ export default angular
       BemClassModule.name,
       NavigateServiceModule.name,
     ])
-    .config(($routeProvider: angular.ui.IUrlRouterProvider) => {
-      $routeProvider.when(
-          `/${Enums.toLowerCaseString(ViewType.SCHEDULE, ViewType)}`,
-          {
-            controller: ScheduleViewCtrl,
-            controllerAs: '$ctrl',
-            templateUrl: 'web/schedule/schedule-view.ng',
-          });
+    .component('emScheduleView', {
+      bindings: { },
+      controller: ScheduleViewCtrl,
+      templateUrl: 'web/schedule/schedule-view.ng'
     });

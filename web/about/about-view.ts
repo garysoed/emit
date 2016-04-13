@@ -34,12 +34,8 @@ export default angular
       BemClassModule.name,
       NavigateServiceModule.name,
     ])
-    .config(($routeProvider: angular.ui.IUrlRouterProvider) => {
-      $routeProvider.when(
-          `/${Enums.toLowerCaseString(ViewType.ABOUT, ViewType)}`,
-          {
-            controller: AboutViewCtrl,
-            controllerAs: '$ctrl',
-            templateUrl: 'web/about/about-view.ng',
-          });
+    .component('emAboutView', {
+      bindings: { },
+      controller: AboutViewCtrl,
+      templateUrl: 'web/about/about-view.ng'
     });

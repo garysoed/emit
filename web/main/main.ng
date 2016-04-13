@@ -26,6 +26,6 @@
     </md-toolbar>
   </div>
   <div gs-bem-class="'view-root'">
-    <div ng-view flex></div>
+    <ng-outlet></ng-outlet>
   </div>
 </md-content>

@@ -1,16 +1,13 @@
-import AboutViewModule from './about/about-view';
 import MainModule from './main/main';
-import ScheduleViewModule from './schedule/schedule-view';
 
 angular
     .module('em.App', [
       'ng',
       'ngMaterial',
-      'ngRoute',
-      AboutViewModule.name,
+      'ngComponentRouter',
       MainModule.name,
-      ScheduleViewModule.name,
     ])
+    .value('$routerRootComponent', 'emMain')
     .config((
         $mdThemingProvider: angular.material.IThemingProvider,
         $routeProvider: angular.ui.IUrlRouterProvider) => {
@@ -18,9 +15,6 @@ angular
           .theme('default')
           .primaryPalette('light-blue')
           .accentPalette('lime');
-      $routeProvider.otherwise({
-        redirectTo: '/about',
-      });
     });
 
 angular.bootstrap(document.body, ['em.App'], {strictDi: false});

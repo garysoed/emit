@@ -35,6 +35,7 @@
     "vinyl-named": "^1.1.0"
   },
   "dependencies": {
+    "@angular/router": "^0.2.0",
     "gs-tools": "garysoed/gs-tools"
   }
 }

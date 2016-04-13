@@ -1,6 +1,8 @@
 var path= require('path');
 
 var gn = require('./node_modules/gs-tools/gulp/gulp-node')(__dirname, require('gulp'));
+var fileTasks = require('./node_modules/gs-tools/gulp-tasks/file')(
+    require('gulp-concat'));
 var karmaTasks = require('./node_modules/gs-tools/gulp-tasks/karma')(
     require('karma').Server);
 var sassTasks = require('./node_modules/gs-tools/gulp-tasks/sass')(
@@ -42,14 +44,11 @@ gn.exec('compile-ui', gn.series(
     gn.parallel(
         '_compile',
         sassTasks.compile(gn, 'web/**'),
-        function images_() {
-          return gn.src(['images/**'])
-              .pipe(gn.dest('out/images'));
-        },
-        function ng_() {
-          return gn.src(['web/**/*.ng'])
-              .pipe(gn.dest('out/web'));
-        }),
+        fileTasks.copy(gn, [
+          'node_modules/@angular/router/angular1/angular_1_router.js',
+          'images/**',
+          'web/**/*.'
+        ])),
     packTasks.app(gn, ['web/app.js'], 'js.js')
 ));
 
@@ -62,6 +61,7 @@ gn.exec('deploy', gn.series(
             'out/js.js',
             'out/css.css',
             'out/images/**',
+            'out/node_modules/**',
             'index.html'
           ],
           { base: '.' })
