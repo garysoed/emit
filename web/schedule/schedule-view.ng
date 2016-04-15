@@ -44,6 +44,7 @@
     <label>Message</label>
     <textarea ng-model="$ctrl.message"></textarea>
   </md-input-container>
+  <div gs-bem-class="'recaptcha'"></div>
   <section layout="row" layout-align="end">
     <md-button
         class="md-primary"

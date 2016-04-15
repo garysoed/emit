@@ -47,7 +47,7 @@ gn.exec('compile-ui', gn.series(
         fileTasks.copy(gn, [
           'node_modules/@angular/router/angular1/angular_1_router.js',
           'images/**',
-          'web/**/*.'
+          'web/**/*.ng'
         ])),
     packTasks.app(gn, ['web/app.js'], 'js.js')
 ));

@@ -1,31 +1,44 @@
 import AppointmentType from '../model/appointment-type';
+import BaseComponent from '../../node_modules/gs-tools/src/ng/base-component';
 import BemClassModule from '../../node_modules/gs-tools/src/ng/bem-class';
 import Cache from '../../node_modules/gs-tools/src/data/a-cache';
 import Enums from '../../node_modules/gs-tools/src/typescript/enums';
 import Http from '../../node_modules/gs-tools/src/net/http';
 import NavigateServiceModule, { NavigateService } from '../navigate/navigate-service';
+import Recaptcha, { EventType as RecaptchaEventType } from '../../node_modules/gs-tools/src/secure/recaptcha';
+import RecaptchaServiceModule, { RecaptchaService } from './recaptcha-service';
 import ViewType from '../navigate/view-type';
 
-export class ScheduleViewCtrl {
+
+export class ScheduleViewCtrl extends BaseComponent {
+  private $element_: HTMLElement;
   private $mdDialog_: angular.material.IDialogService;
-  private $scope_: angular.IScope;
   private appointmentType_: AppointmentType;
   private birthDate_: Date;
   private email_: string;
   private message_: string;
   private name_: string;
+  private recaptchaPromise_: Promise<Recaptcha>;
+  private recaptchaResponse_: string;
+  private recaptchaService_: RecaptchaService;
 
   constructor(
+      $element: angular.IAugmentedJQuery,
       $mdDialog: angular.material.IDialogService,
       $scope: angular.IScope,
-      NavigateService: NavigateService) {
+      NavigateService: NavigateService,
+      RecaptchaService: RecaptchaService) {
+    super($scope);
+    this.$element_ = $element[0];
     this.$mdDialog_ = $mdDialog;
-    this.$scope_ = $scope;
     this.appointmentType_ = NavigateService.scheduleViewParams.appointmentType || null;
     this.birthDate_ = null;
     this.email_ = '';
     this.message_ = '';
     this.name_ = '';
+    this.recaptchaPromise_ = null;
+    this.recaptchaResponse_ = null;
+    this.recaptchaService_ = RecaptchaService;
   }
 
   private clearFields_(): void {
@@ -33,6 +46,21 @@ export class ScheduleViewCtrl {
     this.email_ = '';
     this.message_ = '';
     this.name_ = '';
+  }
+
+  private onNewResponse_(recaptcha: Recaptcha): void {
+    this.recaptchaResponse_ = recaptcha.response;
+    this.$scope.$apply(() => undefined);
+  }
+
+  $onInit(): void {
+    this.recaptchaPromise_ = this.recaptchaService_
+        .render(<HTMLElement> this.$element_.querySelector(`[gs-bem-class="'recaptcha'"]`))
+        .then((recaptcha: Recaptcha) => {
+          this.addDisposable(recaptcha.on(
+              RecaptchaEventType.NEW_RESPONSE, this.onNewResponse_.bind(this, recaptcha)));
+          return recaptcha;
+        });
   }
 
   @Cache()
@@ -89,7 +117,9 @@ export class ScheduleViewCtrl {
   }
 
   get isInvalid(): boolean {
-    return this.$scope_['scheduleForm'].$invalid || !this.appointmentType;
+    return this.$scope['scheduleForm'].$invalid ||
+        !this.appointmentType ||
+        this.recaptchaResponse_ === null;
   }
 
   get message(): string {
@@ -106,8 +136,12 @@ export class ScheduleViewCtrl {
     this.name_ = name;
   }
 
-  onClearClick(): void {
+  onClearClick(): Promise<void> {
     this.clearFields_();
+    this.recaptchaResponse_ = null;
+    return this.recaptchaPromise_.then((recaptcha: Recaptcha) => {
+      recaptcha.reset();
+    });
   }
 
   onSubmitClick($event: MouseEvent): Promise<any> {
@@ -130,7 +164,7 @@ export class ScheduleViewCtrl {
                   .textContent('We will contact you within one business day')
                   .ok('OK')
                   .targetEvent($event));
-          this.$scope_.$apply(() => undefined);
+          this.$scope.$apply(() => undefined);
         });
   }
 
@@ -144,6 +178,7 @@ export default angular
       'ngRoute',
       BemClassModule.name,
       NavigateServiceModule.name,
+      RecaptchaServiceModule.name,
     ])
     .component('emScheduleView', {
       bindings: { },

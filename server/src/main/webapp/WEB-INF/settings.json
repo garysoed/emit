@@ -1,4 +1,5 @@
 {
   "mailgunApiKey": "key-c05f76b786c108141d40eba48ababba0",
-  "mailgunDomainName": "emanations.me"
+  "mailgunDomainName": "emanations.me",
+  "recaptchaSecretKey": "6LffXR0TAAAAADz3BmT7kuYEBXHmTpyYX9XQmK_u"
 }

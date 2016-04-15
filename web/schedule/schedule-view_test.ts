@@ -5,31 +5,72 @@ import AppointmentType from '../model/appointment-type';
 import FakeScope from '../../node_modules/gs-tools/src/ng/fake-scope';
 import Http from '../../node_modules/gs-tools/src/net/http';
 import Mocks from '../../node_modules/gs-tools/src/mock/mocks';
+import { EventType as RecaptchaEventType } from '../../node_modules/gs-tools/src/secure/recaptcha';
 import { ScheduleViewCtrl } from './schedule-view';
+import TestDispose from '../../node_modules/gs-tools/src/testing/test-dispose';
 
 describe('schedule.ScheduleViewCtrl', () => {
+  let mock$element;
   let mock$mdDialog;
   let mock$scope;
   let mockNavigateService;
+  let mockRecaptchaElement;
+  let mockRecaptchaService;
   let mockScheduleForm;
   let ctrl;
 
   beforeEach(() => {
+    mockRecaptchaElement = Mocks.object('RecaptchaElement');
+    mock$element = Mocks.element({
+      '[gs-bem-class="\'recaptcha\'"]': mockRecaptchaElement
+    });
     mock$mdDialog = jasmine.createSpyObj('$mdDialog', ['alert', 'show']);
     mock$scope = FakeScope.create();
     mockNavigateService = Mocks.object('NavigateService');
     mockNavigateService.scheduleViewParams = {};
+    mockRecaptchaService = jasmine.createSpyObj('RecaptchaService', ['render']);
     mockScheduleForm = {};
     mock$scope['scheduleForm'] = mockScheduleForm;
-    ctrl = new ScheduleViewCtrl(mock$mdDialog, mock$scope, mockNavigateService);
+    ctrl = new ScheduleViewCtrl(
+        <any> [mock$element],
+        mock$mdDialog,
+        mock$scope,
+        mockNavigateService,
+        mockRecaptchaService);
+    TestDispose.add(ctrl);
   });
 
   it('should default appointment type to the value in navigate service', () => {
     let appointmentType = AppointmentType.COUNSEL;
     mockNavigateService.scheduleViewParams.appointmentType = appointmentType;
-    ctrl = new ScheduleViewCtrl(mock$mdDialog, mock$scope, mockNavigateService);
+    ctrl = new ScheduleViewCtrl(
+        <any> [mock$element],
+        mock$mdDialog,
+        mock$scope,
+        mockNavigateService,
+        mockRecaptchaService);
+    TestDispose.add(ctrl);
 
     expect(ctrl.appointmentType).toEqual(String(appointmentType));
+  });
+
+  describe('$onInit', () => {
+    it('should initialize the recaptcha service correctly', (done: any) => {
+      let mockRecaptcha = Mocks.listenable('Recaptcha');
+      spyOn(mockRecaptcha, 'on').and.callThrough();
+      mockRecaptchaService.render.and.returnValue(Promise.resolve(mockRecaptcha));
+      ctrl.$onInit();
+
+      ctrl['recaptchaPromise_']
+          .then((recaptcha: any) => {
+            expect(recaptcha).toEqual(mockRecaptcha);
+            expect(mockRecaptchaService.render).toHaveBeenCalledWith(mockRecaptchaElement);
+
+            expect(mockRecaptcha.on)
+                .toHaveBeenCalledWith(RecaptchaEventType.NEW_RESPONSE, jasmine.any(Function));
+            done();
+          }, done.fail);
+    });
   });
 
   describe('get / set appointmentType', () => {
@@ -63,12 +104,21 @@ describe('schedule.ScheduleViewCtrl', () => {
   describe('isInvalid', () => {
     it('should return true if the schedule form is invalid', () => {
       mockScheduleForm.$invalid = true;
-
+      ctrl.appointmentType = '2';
+      ctrl['recaptchaResponse_'] = 'response';
       expect(ctrl.isInvalid).toEqual(true);
     });
 
     it('should return true if the appointment type is not selected', () => {
       mockScheduleForm.$invalid = false;
+      ctrl['recaptchaResponse_'] = 'response';
+      expect(ctrl.isInvalid).toEqual(true);
+    });
+
+    it('should return true if the recaptcha response is not received', () => {
+      mockScheduleForm.$invalid = false;
+      ctrl.appointmentType = '2';
+      ctrl['recaptchaResponse_'] = null;
       expect(ctrl.isInvalid).toEqual(true);
     });
 
@@ -76,22 +126,30 @@ describe('schedule.ScheduleViewCtrl', () => {
         () => {
           mockScheduleForm.$invalid = false;
           ctrl.appointmentType = '2';
+          ctrl['recaptchaResponse_'] = 'response';
           expect(ctrl.isInvalid).toEqual(false);
         });
   });
 
   describe('onClearClick', () => {
-    it('should clear all the fields', () => {
+    it('should clear all the fields', (done: any) => {
+      let mockRecaptcha = jasmine.createSpyObj('Recaptcha', ['reset']);
       ctrl.appointmentType = String(AppointmentType.NATAL);
       ctrl.name = 'name';
       ctrl.email = 'email';
       ctrl.message = 'message';
-      ctrl.onClearClick();
+      ctrl['recaptchaPromise_'] = Promise.resolve(mockRecaptcha);
 
-      expect(ctrl.appointmentType).toEqual(null);
-      expect(ctrl.name).toEqual('');
-      expect(ctrl.email).toEqual('');
-      expect(ctrl.message).toEqual('');
+      ctrl.onClearClick()
+          .then(() => {
+            expect(ctrl.appointmentType).toEqual(null);
+            expect(ctrl.name).toEqual('');
+            expect(ctrl.email).toEqual('');
+            expect(ctrl.message).toEqual('');
+
+            expect(mockRecaptcha.reset).toHaveBeenCalledWith();
+            done();
+          }, done.fail);
     });
   });
 

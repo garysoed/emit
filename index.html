@@ -23,6 +23,12 @@
     <!-- App -->
     <link rel="stylesheet" href="css.css">
 
+    <script>
+      window['onRecaptchaLoad'] = function() {
+        window['recaptchaReady'] = true;
+      };
+    </script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
   </head>
   <body>
     <em-main></em-main>
