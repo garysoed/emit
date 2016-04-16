@@ -153,6 +153,7 @@ export class ScheduleViewCtrl extends BaseComponent {
           'fromName': this.name,
           'subject': `[SCHEDULE] ${this.name} - ${appointmentTypeString}`,
           'content': this.message,
+          'recaptcha': this.recaptchaResponse_
         })
         .send()
         .then(() => {

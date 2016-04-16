@@ -18,39 +18,67 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class SendEmailHandler {
   private final Settings settings;
   private final Provider<Client> clientProvider;
 
+  private static final Logger logger = Logger.getLogger(SendEmailHandler.class.getName());
+
+  private SendRecaptchaHandler sendRecaptchaHandler;
+  private final HttpServletRequest request;
+  private final HttpServletResponse response;
+
   @Inject
-  SendEmailHandler(@ServletScoped Settings settings) {
-    this(settings, new Provider<Client>() {
-      @Override
-      public Client get() {
-        return Client.create();
-      }
-    });
+  SendEmailHandler(
+      @ServletScoped Settings settings,
+      SendRecaptchaHandler sendRecaptchaHandler,
+      HttpServletRequest request,
+      HttpServletResponse response) {
+    this(
+        settings,
+        new Provider<Client>() {
+          @Override
+          public Client get() {
+            return Client.create();
+          }
+        },
+        sendRecaptchaHandler,
+        request,
+        response);
   }
 
   @VisibleForTesting
-  SendEmailHandler(Settings settings, Provider<Client> clientProvider) {
+  SendEmailHandler(
+      Settings settings,
+      Provider<Client> clientProvider,
+      SendRecaptchaHandler sendRecaptchaHandler,
+      HttpServletRequest request,
+      HttpServletResponse response) {
     this.settings = settings;
     this.clientProvider = clientProvider;
+    this.sendRecaptchaHandler = sendRecaptchaHandler;
+    this.request = request;
+    this.response = response;
   }
 
-  public void post(HttpServletRequest req, HttpServletResponse resp)
+  public void post()
       throws ServletException, IOException, ValidationException {
+    this.sendRecaptchaHandler.send();
+
     // Validates the data
     Validator validator = Validator.newInstance();
-    String from = validator.check(req.getParameter("from")).exists().orError("from is required");
-    String fromName = validator.check(req.getParameter("fromName"))
+    String from = validator.check(request.getParameter("from"))
+        .exists()
+        .orError("from is required");
+    String fromName = validator.check(request.getParameter("fromName"))
         .exists()
         .orError("fromName is required");
-    String subject = validator.check(req.getParameter("subject"))
+    String subject = validator.check(request.getParameter("subject"))
         .exists()
         .orError("subject is required");
-    String content = validator.check(req.getParameter("content"))
+    String content = validator.check(request.getParameter("content"))
         .exists()
         .orUse("");
 
@@ -61,7 +89,7 @@ public class SendEmailHandler {
     String mailgunApiKey = settings.getMailgunApiKey();
     String mailgunDomainName = settings.getMailgunDomainName();
 
-    resp.setContentType("text/plain");
+    response.setContentType("text/plain");
 
     Client client = this.clientProvider.get();
     client.addFilter(new HTTPBasicAuthFilter("api", mailgunApiKey));
@@ -74,9 +102,9 @@ public class SendEmailHandler {
     formData.add("subject", subject);
     formData.add("text", content);
 
-    ClientResponse response = webResource.type(MediaType.APPLICATION_FORM_URLENCODED)
+    ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_FORM_URLENCODED)
         .post(ClientResponse.class, formData);
 
-    resp.getWriter().print(response.getStatus());
+    response.getWriter().print(clientResponse.getStatus());
   }
 }

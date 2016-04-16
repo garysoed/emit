@@ -1,7 +1,7 @@
 package com.emit.common;
 
-import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
 
 import java.util.List;
 
@@ -14,6 +14,14 @@ public class Validator {
 
   public static Validator newInstance() {
     return new Validator();
+  }
+
+  public BooleanValidationChecker check(Boolean value) {
+    return new BooleanValidationChecker(value);
+  }
+
+  public IntegerValidationChecker check(Integer value) {
+    return new IntegerValidationChecker(value);
   }
 
   public StringValidationChecker check(String value) {
@@ -51,6 +59,28 @@ public class Validator {
 
     public V orUse(V value) {
       return this.isValid ? this.value : value;
+    }
+  }
+
+  public class BooleanValidationChecker extends ValidationChecker<Boolean> {
+    BooleanValidationChecker(Boolean value) {
+      super(value);
+    }
+
+    public BooleanValidationChecker isEqualTo(boolean other) {
+      this.isValid = this.isValid && (this.value == other);
+      return this;
+    }
+  }
+
+  public class IntegerValidationChecker extends ValidationChecker<Integer> {
+    IntegerValidationChecker(Integer value) {
+      super(value);
+    }
+
+    public IntegerValidationChecker isEqualTo(int other) {
+      this.isValid = this.isValid && (this.value == other);
+      return this;
     }
   }
 

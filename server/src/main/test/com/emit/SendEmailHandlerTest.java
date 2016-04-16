@@ -27,19 +27,27 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SendEmailHandlerTest {
-  @Mock Settings mockSettings;
   @Mock Client mockClient;
+  @Mock HttpServletRequest mockRequest;
+  @Mock HttpServletResponse mockResponse;
+  @Mock SendRecaptchaHandler mockSendRecaptchaHandler;
+  @Mock Settings mockSettings;
 
   private SendEmailHandler handler;
 
   @Before
   public void setUp() throws Exception {
-    handler = new SendEmailHandler(mockSettings, new Provider<Client>() {
-      @Override
-      public Client get() {
-        return mockClient;
-      }
-    });
+    handler = new SendEmailHandler(
+        mockSettings,
+        new Provider<Client>() {
+          @Override
+          public Client get() {
+            return mockClient;
+          }
+        },
+        mockSendRecaptchaHandler,
+        mockRequest,
+        mockResponse);
   }
 
   /**
@@ -58,11 +66,10 @@ public class SendEmailHandlerTest {
     when(mockSettings.getMailgunApiKey()).thenReturn(apiKey);
     when(mockSettings.getMailgunDomainName()).thenReturn(domainName);
 
-    HttpServletRequest mockHttpServletRequest = mock(HttpServletRequest.class);
-    when(mockHttpServletRequest.getParameter("from")).thenReturn(from);
-    when(mockHttpServletRequest.getParameter("fromName")).thenReturn(fromName);
-    when(mockHttpServletRequest.getParameter("subject")).thenReturn(subject);
-    when(mockHttpServletRequest.getParameter("content")).thenReturn(content);
+    when(mockRequest.getParameter("from")).thenReturn(from);
+    when(mockRequest.getParameter("fromName")).thenReturn(fromName);
+    when(mockRequest.getParameter("subject")).thenReturn(subject);
+    when(mockRequest.getParameter("content")).thenReturn(content);
 
     ClientResponse mockClientResponse = mock(ClientResponse.class);
     when(mockClientResponse.getStatus()).thenReturn(status);
@@ -79,10 +86,11 @@ public class SendEmailHandlerTest {
         .thenReturn(mockWebResource);
 
     PrintWriter mockPrintWriter = mock(PrintWriter.class);
-    HttpServletResponse mockHttpServletResponse = mock(HttpServletResponse.class);
-    when(mockHttpServletResponse.getWriter()).thenReturn(mockPrintWriter);
+    when(mockResponse.getWriter()).thenReturn(mockPrintWriter);
 
-    handler.post(mockHttpServletRequest, mockHttpServletResponse);
+    handler.post();
+
+    verify(mockSendRecaptchaHandler).send();
 
     verify(mockPrintWriter).print(status);
 
@@ -95,21 +103,18 @@ public class SendEmailHandlerTest {
     assertThat(formData.get("subject", String.class)).containsExactly(subject);
     assertThat(formData.get("text", String.class)).containsExactly(content);
 
-    verify(mockHttpServletResponse).setContentType("text/plain");
+    verify(mockResponse).setContentType("text/plain");
   }
 
   @Test
   public void post_noFrom() throws Exception {
-    HttpServletRequest mockHttpServletRequest = mock(HttpServletRequest.class);
-    when(mockHttpServletRequest.getParameter("from")).thenReturn(null);
-    when(mockHttpServletRequest.getParameter("fromName")).thenReturn("fromName");
-    when(mockHttpServletRequest.getParameter("subject")).thenReturn("subject");
-    when(mockHttpServletRequest.getParameter("content")).thenReturn("content");
-
-    HttpServletResponse mockHttpServletResponse = mock(HttpServletResponse.class);
+    when(mockRequest.getParameter("from")).thenReturn(null);
+    when(mockRequest.getParameter("fromName")).thenReturn("fromName");
+    when(mockRequest.getParameter("subject")).thenReturn("subject");
+    when(mockRequest.getParameter("content")).thenReturn("content");
 
     try {
-      handler.post(mockHttpServletRequest, mockHttpServletResponse);
+      handler.post();
       fail("Expected ValidationException thrown");
     } catch (ValidationException e) {
       assertThat(e).hasMessage("from is required");
@@ -118,16 +123,13 @@ public class SendEmailHandlerTest {
 
   @Test
   public void post_noFromName() throws Exception {
-    HttpServletRequest mockHttpServletRequest = mock(HttpServletRequest.class);
-    when(mockHttpServletRequest.getParameter("from")).thenReturn("from");
-    when(mockHttpServletRequest.getParameter("fromName")).thenReturn(null);
-    when(mockHttpServletRequest.getParameter("subject")).thenReturn("subject");
-    when(mockHttpServletRequest.getParameter("content")).thenReturn("content");
-
-    HttpServletResponse mockHttpServletResponse = mock(HttpServletResponse.class);
+    when(mockRequest.getParameter("from")).thenReturn("from");
+    when(mockRequest.getParameter("fromName")).thenReturn(null);
+    when(mockRequest.getParameter("subject")).thenReturn("subject");
+    when(mockRequest.getParameter("content")).thenReturn("content");
 
     try {
-      handler.post(mockHttpServletRequest, mockHttpServletResponse);
+      handler.post();
       fail("Expected ValidationException thrown");
     } catch (ValidationException e) {
       assertThat(e).hasMessage("fromName is required");
@@ -136,16 +138,14 @@ public class SendEmailHandlerTest {
 
   @Test
   public void post_noSubject() throws Exception {
-    HttpServletRequest mockHttpServletRequest = mock(HttpServletRequest.class);
-    when(mockHttpServletRequest.getParameter("from")).thenReturn("from");
-    when(mockHttpServletRequest.getParameter("fromName")).thenReturn("fromName");
-    when(mockHttpServletRequest.getParameter("subject")).thenReturn(null);
-    when(mockHttpServletRequest.getParameter("content")).thenReturn("content");
-
-    HttpServletResponse mockHttpServletResponse = mock(HttpServletResponse.class);
+    when(mockRequest.getParameter("from")).thenReturn("from");
+    when(mockRequest.getParameter("fromName")).thenReturn("fromName");
+    when(mockRequest.getParameter("subject")).thenReturn(null);
+    when(mockRequest.getParameter("content")).thenReturn("content");
+    when(mockRequest.getParameter("recaptcha")).thenReturn("recaptcha");
 
     try {
-      handler.post(mockHttpServletRequest, mockHttpServletResponse);
+      handler.post();
       fail("Expected ValidationException thrown");
     } catch (ValidationException e) {
       assertThat(e).hasMessage("subject is required");
@@ -157,11 +157,11 @@ public class SendEmailHandlerTest {
     when(mockSettings.getMailgunApiKey()).thenReturn("apiKey");
     when(mockSettings.getMailgunDomainName()).thenReturn("domainName");
 
-    HttpServletRequest mockHttpServletRequest = mock(HttpServletRequest.class);
-    when(mockHttpServletRequest.getParameter("from")).thenReturn("from");
-    when(mockHttpServletRequest.getParameter("fromName")).thenReturn("fromName");
-    when(mockHttpServletRequest.getParameter("subject")).thenReturn("subject");
-    when(mockHttpServletRequest.getParameter("content")).thenReturn(null);
+    when(mockRequest.getParameter("from")).thenReturn("from");
+    when(mockRequest.getParameter("fromName")).thenReturn("fromName");
+    when(mockRequest.getParameter("subject")).thenReturn("subject");
+    when(mockRequest.getParameter("content")).thenReturn(null);
+    when(mockRequest.getParameter("recaptcha")).thenReturn("recaptcha");
 
     ClientResponse mockClientResponse = mock(ClientResponse.class);
     when(mockClientResponse.getStatus()).thenReturn(200);
@@ -177,10 +177,9 @@ public class SendEmailHandlerTest {
     when(mockClient.resource(anyString())).thenReturn(mockWebResource);
 
     PrintWriter mockPrintWriter = mock(PrintWriter.class);
-    HttpServletResponse mockHttpServletResponse = mock(HttpServletResponse.class);
-    when(mockHttpServletResponse.getWriter()).thenReturn(mockPrintWriter);
+    when(mockResponse.getWriter()).thenReturn(mockPrintWriter);
 
-    handler.post(mockHttpServletRequest, mockHttpServletResponse);
+    handler.post();
 
     ArgumentCaptor<MultivaluedMapImpl> formDataCaptor =
         ArgumentCaptor.forClass(MultivaluedMapImpl.class);

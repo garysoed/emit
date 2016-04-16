@@ -3,6 +3,7 @@ package com.emit.model;
 public class Settings {
   private String mailgunApiKey;
   private String mailgunDomainName;
+  private String recaptchaSecretKey;
 
   Settings() {}
 
@@ -12,5 +13,9 @@ public class Settings {
 
   public String getMailgunDomainName() {
     return mailgunDomainName;
+  }
+
+  public String getRecaptchaSecretKey() {
+    return recaptchaSecretKey;
   }
 }
