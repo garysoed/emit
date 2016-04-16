@@ -160,6 +160,7 @@ describe('schedule.ScheduleViewCtrl', () => {
       let name = 'name';
       let email = 'email';
       let message = 'message';
+      let recaptcha = 'recaptcha';
 
       let mockAlertDialog = Mocks.builder(
           'AlertDialog',
@@ -183,14 +184,17 @@ describe('schedule.ScheduleViewCtrl', () => {
 
       let mockEvent = Mocks.object('Event');
 
+      ctrl['recaptchaResponse_'] = recaptcha;
+
       ctrl.onSubmitClick(mockEvent)
           .then(() => {
             expect(Http.post).toHaveBeenCalledWith('/email');
             expect(mockHttpBuilder.setFormData).toHaveBeenCalledWith({
+              'content': message,
               'from': email,
               'fromName': name,
+              'recaptcha': recaptcha,
               'subject': jasmine.stringMatching(appointmentTypeString),
-              'content': message,
             });
 
             expect(ctrl.getAppointmentTypeString).toHaveBeenCalledWith(appointmentType);
