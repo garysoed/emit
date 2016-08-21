@@ -43,7 +43,7 @@ describe('navigate.NavigateService', () => {
       service.toSchedule(appointmentType);
 
       expect(mockRouteService.to).toHaveBeenCalledWith('schedule', {
-        'appointmentType': 'tarot_long'
+        'appointmentType': 'tarot_long',
       });
     });
 

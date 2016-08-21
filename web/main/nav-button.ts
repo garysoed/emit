@@ -1,4 +1,4 @@
-import BemClassModule from '../../node_modules/gs-tools/src/ng/bem-class';
+import BemClassModule from '../../external/gs_tools/src/ng/bem-class';
 import NavigateServiceModule, { NavigateService } from '../navigate/navigate-service';
 import ViewType from '../navigate/view-type';
 

@@ -1,14 +1,14 @@
 import AboutViewModule from '../about/about-view';
-import BaseDisposable from '../../node_modules/gs-tools/src/dispose/base-disposable';
-import BemClassModule from '../../node_modules/gs-tools/src/ng/bem-class';
+import {BaseDisposable} from '../../external/gs_tools/src/dispose';
+import BemClassModule from '../../external/gs_tools/src/ng/bem-class';
 import NavButton from './nav-button';
 import OverflowWatcher, { EventType as OverflowWatcherEventType, State as OverflowWatcherState }
-    from '../../node_modules/gs-tools/src/ui/overflow-watcher';
+    from '../../external/gs_tools/src/ui/overflow-watcher';
 import ScheduleViewModule from '../schedule/schedule-view';
 import ViewType from '../navigate/view-type';
 
 
-export class MainCtrl extends BaseDisposable {
+export class RootViewCtrl extends BaseDisposable {
   private $scope_: angular.IScope;
   private isSticky_: boolean;
   private toolbar_: HTMLElement;
@@ -44,20 +44,20 @@ export class MainCtrl extends BaseDisposable {
   }
 };
 
-export default angular
-    .module('main.Main', [
+export const RootViewModule = angular
+    .module('main.RootView', [
       'ngMaterial',
       AboutViewModule.name,
       BemClassModule.name,
       NavButton.name,
       ScheduleViewModule.name,
     ])
-    .component('emMain', {
-      bindings: { },
-      controller: MainCtrl,
-      templateUrl: 'web/main/main.ng',
+    .component('emRootView', {
       $routeConfig: [
-        { path: '/about', name: 'About', component: 'emAboutView' },
-        { path: '/schedule', name: 'Schedule', component: 'emScheduleView' }
-      ]
+        {component: 'emAboutView', name: 'About', path: '/about'},
+        {component: 'emScheduleView', name: 'Schedule', path: '/schedule'},
+      ],
+      bindings: { },
+      controller: RootViewCtrl,
+      templateUrl: 'web/main/root-view.ng',
     });

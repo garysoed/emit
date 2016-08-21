@@ -1,11 +1,11 @@
 import TestBase from '../test-base';
 TestBase.config();
 
-import FakeScope from '../../node_modules/gs-tools/src/ng/fake-scope';
-import { MainCtrl } from './main';
-import Mocks from '../../node_modules/gs-tools/src/mock/mocks';
-import { State as OverflowWatcherState } from '../../node_modules/gs-tools/src/ui/overflow-watcher';
-import TestDispose from '../../node_modules/gs-tools/src/testing/test-dispose';
+import FakeScope from '../../external/gs_tools/src/ng/fake-scope';
+import {RootViewCtrl} from './root-view';
+import {Mocks} from '../../external/gs_tools/src/mock';
+import {State as OverflowWatcherState} from '../../external/gs_tools/src/ui/overflow-watcher';
+import {TestDispose} from '../../external/gs_tools/src/testing';
 
 
 describe('main.MainCtrl', () => {
@@ -23,7 +23,7 @@ describe('main.MainCtrl', () => {
       '.sticky': document.createElement('div'),
       'md-content': document.createElement('div'),
     });
-    ctrl = new MainCtrl(mock$scope, <any> [mock$element]);
+    ctrl = new RootViewCtrl(mock$scope, <any> [mock$element]);
     TestDispose.add(ctrl);
   });
 

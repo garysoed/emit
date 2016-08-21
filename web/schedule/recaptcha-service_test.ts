@@ -1,11 +1,11 @@
 import TestBase from '../test-base';
 TestBase.config();
 
-import Mocks from '../../node_modules/gs-tools/src/mock/mocks';
-import Recaptcha from '../../node_modules/gs-tools/src/secure/recaptcha';
+import {Mocks} from '../../external/gs_tools/src/mock';
+import {Recaptcha} from '../../external/gs_tools/src/secure';
 import { RecaptchaService } from './recaptcha-service';
-import TestDispose from '../../node_modules/gs-tools/src/testing/test-dispose';
-import WaitUntil from '../../node_modules/gs-tools/src/async/wait-until';
+import {TestDispose} from '../../external/gs_tools/src/testing';
+import WaitUntil from '../../external/gs_tools/src/async/wait-until';
 
 
 describe('schedule.RecaptchaService', () => {
@@ -16,7 +16,7 @@ describe('schedule.RecaptchaService', () => {
 
   beforeEach(() => {
     mock$window = {};
-    mockWaitUntil = Mocks.disposable();
+    mockWaitUntil = Mocks.disposable('WaitUntil');
     waitUntilSpy = spyOn(WaitUntil, 'newInstance').and.returnValue(mockWaitUntil);
 
     service = new RecaptchaService(mock$window);

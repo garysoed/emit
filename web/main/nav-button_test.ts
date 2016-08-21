@@ -33,7 +33,7 @@ describe('main.NavButtonCtrl', () => {
   });
 
   describe('onClick', () => {
-    it('should navigate to the given view', function() {
+    it('should navigate to the given view', () => {
       let view = ViewType.ABOUT;
       ctrl.view = view;
 

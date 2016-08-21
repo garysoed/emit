@@ -1,8 +1,7 @@
 import AppointmentType from '../model/appointment-type';
-import BemClassModule from '../../node_modules/gs-tools/src/ng/bem-class';
-import Enums from '../../node_modules/gs-tools/src/typescript/enums';
+import BemClassModule from '../../external/gs_tools/src/ng/bem-class';
 import NavigateServiceModule, { NavigateService } from '../navigate/navigate-service';
-import ViewType from '../navigate/view-type';
+
 
 export class AboutViewCtrl {
   private navigateService_: NavigateService;
@@ -37,5 +36,5 @@ export default angular
     .component('emAboutView', {
       bindings: { },
       controller: AboutViewCtrl,
-      templateUrl: 'web/about/about-view.ng'
+      templateUrl: 'web/about/about-view.ng',
     });

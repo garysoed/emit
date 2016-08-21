@@ -1,6 +1,6 @@
 import AppointmentType from '../model/appointment-type';
-import Enums from '../../node_modules/gs-tools/src/typescript/enums';
-import RouteServiceModule, { RouteService } from '../../node_modules/gs-tools/src/ng/route-service';
+import {Enums} from '../../external/gs_tools/src/typescript';
+import RouteServiceModule, { RouteService } from '../../external/gs_tools/src/ng/route-service';
 import { ViewType } from './view-type';
 
 
@@ -34,13 +34,13 @@ export class NavigateService {
     this.routeService_.to(Enums.toLowerCaseString(view, ViewType));
   }
 
-  toSchedule(appointmentType?: AppointmentType) {
+  toSchedule(appointmentType?: AppointmentType): void {
     let path = Enums.toLowerCaseString(ViewType.SCHEDULE, ViewType);
     if (appointmentType !== undefined) {
       this.routeService_.to(
           path,
           {
-            'appointmentType': Enums.toLowerCaseString(appointmentType, AppointmentType)
+            'appointmentType': Enums.toLowerCaseString(appointmentType, AppointmentType),
           });
     } else {
       this.routeService_.to(path);
@@ -50,6 +50,6 @@ export class NavigateService {
 
 export default angular
     .module('navigate.NavigateService', [
-      RouteServiceModule.name
+      RouteServiceModule.name,
     ])
     .service('NavigateService', NavigateService);

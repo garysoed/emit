@@ -1,6 +1,6 @@
-import BaseDisposable from '../../node_modules/gs-tools/src/dispose/base-disposable';
-import Recaptcha from '../../node_modules/gs-tools/src/secure/recaptcha';
-import WaitUntil from '../../node_modules/gs-tools/src/async/wait-until';
+import {BaseDisposable} from '../../external/gs_tools/src/dispose';
+import {Recaptcha} from '../../external/gs_tools/src/secure';
+import WaitUntil from '../../external/gs_tools/src/async/wait-until';
 
 const SITEKEY = '6LffXR0TAAAAAF_UhiUh0WPD4-_HXTgCPQscIL07';
 

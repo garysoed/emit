@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/garysoed/emit#readme",
   "devDependencies": {
+    "gs-tools": "garysoed/gs-tools",
     "gulp": "git://github.com/gulpjs/gulp.git#4.0",
     "gulp-concat": "^2.6.0",
     "gulp-myth": "^1.1.0",
@@ -31,11 +32,11 @@
     "karma-jasmine": "^0.3.7",
     "karma-story-reporter": "^0.3.1",
     "tslint": "^3.4.0",
-    "typescript": "^1.7.5",
-    "vinyl-named": "^1.1.0"
+    "typescript": "^2.0.0",
+    "vinyl-named": "^1.1.0",
+    "webpack": "^1.13.2"
   },
   "dependencies": {
-    "@angular/router": "^0.2.0",
-    "gs-tools": "garysoed/gs-tools"
+    "@angular/router": "^0.2.0"
   }
 }

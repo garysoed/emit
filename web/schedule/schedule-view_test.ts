@@ -2,12 +2,12 @@ import TestBase from '../test-base';
 TestBase.config();
 
 import AppointmentType from '../model/appointment-type';
-import FakeScope from '../../node_modules/gs-tools/src/ng/fake-scope';
-import Http from '../../node_modules/gs-tools/src/net/http';
-import Mocks from '../../node_modules/gs-tools/src/mock/mocks';
-import { EventType as RecaptchaEventType } from '../../node_modules/gs-tools/src/secure/recaptcha';
+import FakeScope from '../../external/gs_tools/src/ng/fake-scope';
+import {Http} from '../../external/gs_tools/src/net';
+import {Mocks} from '../../external/gs_tools/src/mock';
+import { EventType as RecaptchaEventType } from '../../external/gs_tools/src/secure/recaptcha';
 import { ScheduleViewCtrl } from './schedule-view';
-import TestDispose from '../../node_modules/gs-tools/src/testing/test-dispose';
+import {TestDispose} from '../../external/gs_tools/src/testing';
 
 describe('schedule.ScheduleViewCtrl', () => {
   let mock$element;
@@ -22,7 +22,7 @@ describe('schedule.ScheduleViewCtrl', () => {
   beforeEach(() => {
     mockRecaptchaElement = Mocks.object('RecaptchaElement');
     mock$element = Mocks.element({
-      '[gs-bem-class="\'recaptcha\'"]': mockRecaptchaElement
+      '[gs-bem-class="\'recaptcha\'"]': mockRecaptchaElement,
     });
     mock$mdDialog = jasmine.createSpyObj('$mdDialog', ['alert', 'show']);
     mock$scope = FakeScope.create();
@@ -142,7 +142,7 @@ describe('schedule.ScheduleViewCtrl', () => {
 
       ctrl.onClearClick()
           .then(() => {
-            expect(ctrl.appointmentType).toEqual(null);
+            expect(ctrl.appointmentType).toEqual('');
             expect(ctrl.name).toEqual('');
             expect(ctrl.email).toEqual('');
             expect(ctrl.message).toEqual('');

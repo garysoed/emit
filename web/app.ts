@@ -1,11 +1,11 @@
-import MainModule from './main/main';
+import {RootViewModule} from './main/root-view';
 
 angular
     .module('em.App', [
       'ng',
       'ngMaterial',
       'ngComponentRouter',
-      MainModule.name,
+      RootViewModule.name,
     ])
     .value('$routerRootComponent', 'emMain')
     .config((

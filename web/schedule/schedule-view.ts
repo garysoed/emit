@@ -1,25 +1,24 @@
 import AppointmentType from '../model/appointment-type';
-import BaseComponent from '../../node_modules/gs-tools/src/ng/base-component';
-import BemClassModule from '../../node_modules/gs-tools/src/ng/bem-class';
-import Cache from '../../node_modules/gs-tools/src/data/a-cache';
-import Enums from '../../node_modules/gs-tools/src/typescript/enums';
-import Http from '../../node_modules/gs-tools/src/net/http';
+import BaseComponent from '../../external/gs_tools/src/ng/base-component';
+import BemClassModule from '../../external/gs_tools/src/ng/bem-class';
+import Cache from '../../external/gs_tools/src/data/a-cache';
+import {Enums} from '../../external/gs_tools/src/typescript';
+import {Http} from '../../external/gs_tools/src/net';
 import NavigateServiceModule, { NavigateService } from '../navigate/navigate-service';
-import Recaptcha, { EventType as RecaptchaEventType } from '../../node_modules/gs-tools/src/secure/recaptcha';
+import {RecaptchaEventType, Recaptcha} from '../../external/gs_tools/src/secure';
 import RecaptchaServiceModule, { RecaptchaService } from './recaptcha-service';
-import ViewType from '../navigate/view-type';
 
 
 export class ScheduleViewCtrl extends BaseComponent {
   private $element_: HTMLElement;
   private $mdDialog_: angular.material.IDialogService;
-  private appointmentType_: AppointmentType;
-  private birthDate_: Date;
+  private appointmentType_: AppointmentType | null;
+  private birthDate_: Date | null;
   private email_: string;
   private message_: string;
   private name_: string;
-  private recaptchaPromise_: Promise<Recaptcha>;
-  private recaptchaResponse_: string;
+  private recaptchaPromise_: Promise<Recaptcha> | null;
+  private recaptchaResponse_: string | null;
   private recaptchaService_: RecaptchaService;
 
   constructor(
@@ -57,6 +56,7 @@ export class ScheduleViewCtrl extends BaseComponent {
     this.recaptchaPromise_ = this.recaptchaService_
         .render(<HTMLElement> this.$element_.querySelector(`[gs-bem-class="'recaptcha'"]`))
         .then((recaptcha: Recaptcha) => {
+          this.addDisposable(recaptcha);
           this.addDisposable(recaptcha.on(
               RecaptchaEventType.NEW_RESPONSE, this.onNewResponse_.bind(this, recaptcha)));
           return recaptcha;
@@ -75,17 +75,17 @@ export class ScheduleViewCtrl extends BaseComponent {
   }
 
   get appointmentType(): string {
-    return this.appointmentType_ === null ? null : String(this.appointmentType_);
+    return this.appointmentType_ === null ? '' : String(this.appointmentType_);
   }
   set appointmentType(appointmentType: string) {
     this.appointmentType_ = Enums
         .fromNumberString<AppointmentType>(appointmentType, AppointmentType);
   }
 
-  get birthDate(): Date {
+  get birthDate(): Date | null {
     return this.birthDate_;
   }
-  set birthDate(date: Date) {
+  set birthDate(date: Date | null) {
     this.birthDate_ = date;
   }
 
@@ -96,7 +96,7 @@ export class ScheduleViewCtrl extends BaseComponent {
     this.email_ = email;
   }
 
-  getAppointmentTypeString(appointmentType: AppointmentType): string {
+  getAppointmentTypeString(appointmentType: AppointmentType | null): string {
     switch (appointmentType) {
       case null:
       case undefined:
@@ -139,9 +139,13 @@ export class ScheduleViewCtrl extends BaseComponent {
   onClearClick(): Promise<void> {
     this.clearFields_();
     this.recaptchaResponse_ = null;
-    return this.recaptchaPromise_.then((recaptcha: Recaptcha) => {
-      recaptcha.reset();
-    });
+    if (this.recaptchaPromise_ !== null) {
+      return this.recaptchaPromise_.then((recaptcha: Recaptcha) => {
+        recaptcha.reset();
+      });
+    } else {
+      throw new Error('Ctrl not initialized');
+    }
   }
 
   onSubmitClick($event: MouseEvent): Promise<any> {
@@ -153,7 +157,7 @@ export class ScheduleViewCtrl extends BaseComponent {
           'fromName': this.name,
           'subject': `[SCHEDULE] ${this.name} - ${appointmentTypeString}`,
           'content': this.message,
-          'recaptcha': this.recaptchaResponse_
+          'recaptcha': this.recaptchaResponse_,
         })
         .send()
         .then(() => {
@@ -184,5 +188,5 @@ export default angular
     .component('emScheduleView', {
       bindings: { },
       controller: ScheduleViewCtrl,
-      templateUrl: 'web/schedule/schedule-view.ng'
+      templateUrl: 'web/schedule/schedule-view.ng',
     });
