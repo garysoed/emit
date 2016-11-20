@@ -25,6 +25,7 @@
         "web/**/*.ts",
         "external/gs_tools/declarations/**/*.d.ts",
         "external/gs_tools/src/**/*.ts",
+        "external/ng2/ts/**/*.ts",
         "node_modules/typescript/lib/lib.dom.d.ts",
         "node_modules/typescript/lib/lib.es2015.d.ts"
     ],

@@ -1,3 +1,9 @@
+new_local_repository(
+    name = "angular2",
+    path = "./node_modules/@angular",
+    build_file = "bazel/angular2/angular2.BUILD",
+)
+
 local_repository(
     name = "gs_tools",
     path = "./node_modules/gs-tools",

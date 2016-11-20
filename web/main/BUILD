@@ -5,10 +5,11 @@ load("@gs_tools//bazel/ts:defs.bzl", "ts_binary", "ts_library")
 
 em(
     deps = [
-      "@gs_tools//src",
-      "@gs_tools//src/ng",
-      "//web/about",
-      "//web/model",
-      "//web/navigate",
-      "//web/schedule",
+        "@angular2//:main",
+        "@gs_tools//src",
+        "@gs_tools//src/ng",
+        "//web/about",
+        "//web/model",
+        "//web/navigate",
+        "//web/schedule",
     ])

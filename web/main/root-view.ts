@@ -1,6 +1,7 @@
 import AboutViewModule from '../about/about-view';
 import {BaseDisposable} from '../../external/gs_tools/src/dispose';
 import BemClassModule from '../../external/gs_tools/src/ng/bem-class';
+import {Component} from '../../external/ng2/core/index';
 import NavButton from './nav-button';
 import OverflowWatcher, { EventType as OverflowWatcherEventType, State as OverflowWatcherState }
     from '../../external/gs_tools/src/ui/overflow-watcher';
